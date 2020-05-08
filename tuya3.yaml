@@ -1,0 +1,44 @@
+esphome:
+  name: tuya3
+  platform: ESP8266
+  board: esp_wroom_02
+  includes:
+    - holtek.h
+
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Tuya3 Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+
+ota:
+
+web_server:
+  port: 80
+
+output:
+  - platform: esp8266_pwm
+    id: yellow_led
+    pin: GPIO00
+
+light:
+  - platform: binary
+    name: "Yellow LED"
+    output: yellow_led
+
