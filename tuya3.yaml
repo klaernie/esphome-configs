@@ -42,3 +42,36 @@ light:
     name: "Yellow LED"
     output: yellow_led
 
+i2c:
+    sda: GPIO05
+    scl: GPIO03
+    scan: True
+
+binary_sensor:
+  #  - platform: gpio
+  #  pin:
+  #    number: GPIO0
+  #    mode: INPUT_PULLUP
+  #    inverted: True
+  #  name: "Touchpad 1"
+  #- platform: gpio
+  #  pin:
+  #    number: GPIO9
+  #    mode: INPUT_PULLUP
+  #    inverted: True
+  #  name: "Touchpad 2"
+  #- platform: gpio
+  #  pin:
+  #    number: GPIO10
+  #    mode: INPUT_PULLUP
+  #    inverted: True
+  #  name: "Touchpad 3"
+  #- platform: status
+  #  name: "Status"
+
+custom_component:
+  - id: htc
+    lambda: |-
+      auto my_custom_sensor = new HoltekChip();
+      App.register_component(my_custom_sensor);
+      return {my_custom_sensor};
