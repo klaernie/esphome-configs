@@ -40,3 +40,19 @@ light:
     name: "Yellow LED"
     output: yellow_led
 
+binary_sensor:
+  - platform: gpio
+    name: "open"
+    pin:
+      number: GPIO05
+      inverted: True
+  - platform: gpio
+    name: "stop"
+    pin:
+      number: GPIO03
+      inverted: True
+  - platform: gpio
+    name: "close"
+    pin:
+      number: GPIO12
+      inverted: True
