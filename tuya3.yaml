@@ -35,11 +35,19 @@ output:
     id: yellow_led
     pin: GPIO00
 
+  - platform: esp8266_pwm
+    id: some_led
+    pin: GPIO15
+
 light:
   - platform: binary
     id: yellow_led_light
     name: "Yellow LED"
     output: yellow_led
+  - platform: binary
+    id: some_led_light
+    name: "some LED"
+    output: some_led
 
 binary_sensor:
   - platform: gpio
