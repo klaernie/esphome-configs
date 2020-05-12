@@ -37,6 +37,7 @@ output:
 
 light:
   - platform: binary
+    id: yellow_led_light
     name: "Yellow LED"
     output: yellow_led
 
@@ -46,13 +47,31 @@ binary_sensor:
     pin:
       number: GPIO05
       inverted: True
+    on_press:
+      then:
+        - light.turn_on: yellow_led_light
+    on_release:
+      then:
+        - light.turn_off: yellow_led_light
   - platform: gpio
     name: "stop"
     pin:
       number: GPIO03
       inverted: True
+    on_press:
+      then:
+        - light.turn_on: yellow_led_light
+    on_release:
+      then:
+        - light.turn_off: yellow_led_light
   - platform: gpio
     name: "close"
     pin:
       number: GPIO12
       inverted: True
+    on_press:
+      then:
+        - light.turn_on: yellow_led_light
+    on_release:
+      then:
+        - light.turn_off: yellow_led_light
