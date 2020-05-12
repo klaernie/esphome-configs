@@ -3,7 +3,7 @@ esphome:
   platform: ESP8266
   board: esp12e
   includes:
-    - DoubleCurvedLight.h
+    - SplitLight.h
 
 wifi:
   ssid: !secret wifi-ssid
@@ -66,13 +66,13 @@ sensor:
 light:
   - platform: custom
     lambda: |-
-      auto light_out = new DoubleCurvedLight(id(out_front), id(out_back));
+      auto light_out = new SplitLight(id(out_front), id(out_back));
       App.register_component(light_out);
       return {light_out};
     lights:
       - name: "Kitchen Light"
         id: "kitchen_light"
-        default_transition_length: 0.3s
+        default_transition_length: 0.0s
 
 
 output:
