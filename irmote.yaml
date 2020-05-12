@@ -60,5 +60,20 @@ switch:
   - platform: template
     name: tvon
     turn_on_action:
-      remote_transmitter.transmit_samsung:
-        data: 0xE0E040BF
+      - light.turn_on: status
+      - remote_transmitter.transmit_samsung:
+          data: 0xE0E040BF
+      - delay: 0.2s
+      - light.turn_off: status
+
+output:
+  - platform: gpio
+    pin: GPIO02
+    id: out_led
+    inverted: true
+
+light:
+  - platform: binary
+    id: status
+    name: "Status LED"
+    output: out_led
