@@ -42,7 +42,7 @@ remote_receiver:
 remote_transmitter:
   id: IRTX
   pin: GPIO05
-  carrier_duty_percent: 50%
+  carrier_duty_percent: 100
 
 climate:
     - platform: tcl112
