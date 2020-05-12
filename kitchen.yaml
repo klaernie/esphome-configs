@@ -30,9 +30,14 @@ mqtt:
     topic: kitchen/light/kitchen_light/command/brightness
     qos: 0
     then:
+      - logger.log:
+          format: "incoming mqtt: %s, sent on as %f"
+          args:
+            - 'x.c_str()'
+            - 'atof(x.c_str()) / 255.f'
       - light.control:
           id: "kitchen_light"
-          brightness: !lambda return atoi(x.c_str()) / 255.f;
+          brightness: !lambda return atof(x.c_str()) / 255.f;
           state: on
 
 ota:
