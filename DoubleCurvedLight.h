@@ -25,12 +25,10 @@ class DoubleCurvedLight : public Component, public LightOutput {
 
 		float front = std::max(0.0f, total-0.5f) * 2;
 
-		/*
 		ESP_LOGD("custom",
-		    "part 1: %f, part 2: %f, part 3: %f, back: %f, front: %f",
-		     p1, p2, p3, back, front
+		    "total: %f (%f), part 123: %f %f %f, back: %f, front: %f",
+		     total, total*255.f, p1, p2, p3, back, front
 		);
-		*/
 
 		this->front->set_level( front );
 		this->back->set_level( back );
