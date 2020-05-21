@@ -2,8 +2,6 @@ esphome:
   name: kitchen
   platform: ESP8266
   board: esp12e
-  includes:
-    - SplitLight.h
 
 wifi:
   ssid: !secret wifi-ssid
@@ -39,6 +37,14 @@ mqtt:
           id: "kitchen_light"
           brightness: !lambda return atof(x.c_str()) / 255.f;
           state: on
+      - light.control:
+          id: "back_light"
+          brightness: !lambda return clamp(pow(atof(x.c_str()) / 255.f * 1.2f, 2.0f), 0.0f, 1.0f);
+          state: on
+      - light.control:
+          id: "front_light"
+          brightness: !lambda return clamp((atof(x.c_str()) / 255.f - 0.5f)*2, 0.0f, 1.0f);
+          state: on
 
 ota:
 
@@ -64,22 +70,31 @@ sensor:
 
 
 light:
-  - platform: custom
-    lambda: |-
-      auto light_out = new SplitLight(id(out_front), id(out_back));
-      App.register_component(light_out);
-      return {light_out};
-    lights:
-      - name: "Kitchen Light"
-        id: "kitchen_light"
-        default_transition_length: 0.0s
+  - platform: monochromatic
+    name: "Kitchen Light"
+    id: "kitchen_light"
+    default_transition_length: 0.0s
+    output: fake_out
+  - platform: monochromatic
+    id: "back_light"
+    default_transition_length: 0.0s
+    output: out_back
+  - platform: monochromatic
+    id: "front_light"
+    default_transition_length: 0.0s
+    output: out_front
 
 
 output:
   - platform: esp8266_pwm
+    id: fake_out
+    pin: GPIO15
+  - platform: esp8266_pwm
     id: out_front
     pin: GPIO12
+    frequency: 10000 Hz
   - platform: esp8266_pwm
     id: out_back
     pin: GPIO14
+    frequency: 10000 Hz
 
