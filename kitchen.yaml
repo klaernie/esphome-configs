@@ -23,6 +23,7 @@ logger:
 mqtt:
   broker: mqtt.ak-online.be
   discovery: true
+  topic_prefix: esphome/kitchen
 
   on_message:
     topic: kitchen/light/kitchen_light/command/brightness

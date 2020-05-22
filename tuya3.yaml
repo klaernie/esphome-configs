@@ -25,6 +25,8 @@ mqtt:
   broker: mqtt.ak-online.be
   discovery: true
 
+  topic_prefix: esphome/tuya3
+
 ota:
 
 web_server:

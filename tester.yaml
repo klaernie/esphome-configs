@@ -26,6 +26,7 @@ logger:
 mqtt:
   broker: mqtt.ak-online.be
   discovery: true
+  topic_prefix: esphome/tester
 
 ota:
 
