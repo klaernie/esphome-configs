@@ -27,6 +27,19 @@ mqtt:
 
   topic_prefix: esphome/tuya3
 
+  on_message:
+    topic: shellies/shellyswitch-9F5EF6/relay/power
+    qos: 0
+    then:
+      - logger.log:
+          format: "incoming mqtt: %s, sent on as %s"
+          args:
+            - 'x.c_str()'
+            - 'atof(x.c_str()) > 10 ? "on" : "off"'
+      - light.control:
+          id: "some_led_light"
+          state: !lambda 'return atof(x.c_str()) > 10 ;'
+
 ota:
 
 web_server:
