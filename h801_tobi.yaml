@@ -1,0 +1,96 @@
+esphome:
+  name: h801_tobi
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  use_address: h801_tobi.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "H801 Tobi Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/h801_tobi
+
+ota:
+
+web_server:
+  port: 80
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal h801light"
+    update_interval: 60s
+
+status_led:
+  pin:
+    number: GPIO05
+    #inverted: True
+
+output:
+  - platform: esp8266_pwm
+    pin: 12
+    frequency: 1000 Hz
+    id: pwm_b
+  - platform: esp8266_pwm
+    pin: 13
+    frequency: 1000 Hz
+    id: pwm_r
+  - platform: esp8266_pwm
+    pin: 15
+    frequency: 1000 Hz
+    id: pwm_g
+  - platform: esp8266_pwm
+    pin: 14
+    frequency: 1000 Hz
+    id: pwm_w1
+  - platform: esp8266_pwm
+    pin: 04
+    frequency: 1000 Hz
+    id: pwm_w2
+  - platform: gpio
+    pin: 05
+    id: red_led
+  - platform: gpio
+    pin: 01
+    id: green_led
+
+#remote_transmitter:
+#  id: IRTX
+#  pin: GPIO12
+#  carrier_duty_percent: 50
+
+light:
+  - platform: rgb
+    name: "Tobi Bed Moodlight"
+    red: pwm_r
+    green: pwm_g
+    blue: pwm_b
+#  - platform: monochromatic
+#    name: "downlight"
+#    output: pwm_w1
+#  - platform: monochromatic
+#    name: "shelf-bottom"
+#    output: pwm_w2
+
+#switch:
+#  - platform: template
+#    name: tvon
+#    turn_on_action:
+#      - remote_transmitter.transmit_samsung:
+#          data: 0xE0E040BF

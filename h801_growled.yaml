@@ -1,5 +1,5 @@
 esphome:
-  name: h801_gamma
+  name: h801_growled
   platform: ESP8266
   board: esp01_1m
 
@@ -7,11 +7,11 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
-  use_address: h801_gamma.ak-online.be
+  use_address: h801_growled.ak-online.be
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "H801 Gamma Fallback Hotspot"
+    ssid: "H801 GrowLED Fallback Hotspot"
     password: "h4GKBUNL9pAE"
 
 captive_portal:
@@ -25,7 +25,7 @@ logger:
 mqtt:
   broker: mqtt.ak-online.be
   discovery: true
-  topic_prefix: esphome/h801_gamma
+  topic_prefix: esphome/h801_growled
 
 ota:
 
@@ -43,10 +43,10 @@ status_led:
     #inverted: True
 
 output:
-#  - platform: esp8266_pwm
-#    pin: 12
-#    frequency: 1000 Hz
-#    id: pwm_b
+  - platform: esp8266_pwm
+    pin: 12
+    frequency: 1000 Hz
+    id: pwm_b
   - platform: esp8266_pwm
     pin: 13
     frequency: 1000 Hz
@@ -70,41 +70,31 @@ output:
     pin: 01
     id: green_led
 
-remote_transmitter:
-  id: IRTX
-  pin: GPIO12
-  carrier_duty_percent: 50
+#remote_transmitter:
+#  id: IRTX
+#  pin: GPIO12
+#  carrier_duty_percent: 50
 
 light:
   - platform: monochromatic
-    name: "shelf-middle"
+    name: "Growled"
     output: pwm_r
-  - platform: monochromatic
-    name: "shelf-top"
-    output: pwm_g
+#  - platform: monochromatic
+#    name: "shelf-top"
+#    output: pwm_g
 #  - platform: monochromatic
 #    name: "B"
 #    output: pwm_b
-  - platform: monochromatic
-    name: "downlight"
-    output: pwm_w1
-  - platform: monochromatic
-    name: "shelf-bottom"
-    output: pwm_w2
+#  - platform: monochromatic
+#    name: "downlight"
+#    output: pwm_w1
+#  - platform: monochromatic
+#    name: "shelf-bottom"
+#    output: pwm_w2
 
-switch:
-  - platform: template
-    name: tvon
-    turn_on_action:
-      - remote_transmitter.transmit_samsung:
-          data: 0xE0E040BF
-  - platform: template
-    name: ClimateState
-    turn_on_action:
-      remote_transmitter.transmit_nec:
-        address: 0x1218
-        command: 0x2110
-    turn_off_action:
-      remote_transmitter.transmit_nec:
-        address: 0x1218
-        command: 0x80B0
+#switch:
+#  - platform: template
+#    name: tvon
+#    turn_on_action:
+#      - remote_transmitter.transmit_samsung:
+#          data: 0xE0E040BF

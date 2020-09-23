@@ -8,6 +8,8 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
+  use_address: tuya3.ak-online.be
+
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Tuya3 Fallback Hotspot"
@@ -57,11 +59,11 @@ output:
 light:
   - platform: binary
     id: yellow_led_light
-    name: "Yellow LED"
+    #    name: "Yellow LED"
     output: yellow_led
   - platform: binary
     id: some_led_light
-    name: "some LED"
+    #name: "some LED"
     output: some_led
 
 binary_sensor:

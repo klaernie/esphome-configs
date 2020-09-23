@@ -10,6 +10,8 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
+  use_address: irmote.ak-online.be
+
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "IR-Remote Fallback Hotspot"
@@ -35,7 +37,7 @@ web_server:
 
 remote_receiver:
   id: IRRX
-  pin: 
+  pin:
     number: GPIO04
     inverted: True
   dump: all
@@ -43,21 +45,25 @@ remote_receiver:
 remote_transmitter:
   id: IRTX
   pin: GPIO05
-  carrier_duty_percent: 100
-
-climate:
-    - platform: tcl112
-      name: "Delonghi AC"
-      receiver_id: IRRX
-      transmitter_id: IRTX
+  carrier_duty_percent: 50
 
 switch:
   - platform: template
+    name: ClimateState
+    turn_on_action:
+      - remote_transmitter.transmit_nec:
+          address: 0x1218
+          command: 0x2110
+    turn_off_action:
+      - remote_transmitter.transmit_nec:
+          address: 0x1218
+          command: 0x80B0
+  - platform: template
     name: TestTrigger
     turn_on_action:
-      remote_transmitter.transmit_panasonic:
-        address: 0x4004
-        command: 0x100BCBD
+      - remote_transmitter.transmit_panasonic:
+          address: 0x4004
+          command: 0x100BCBD
   - platform: template
     name: tvon
     turn_on_action:
@@ -76,5 +82,5 @@ output:
 light:
   - platform: binary
     id: status
-    name: "Status LED"
+    #name: "Status LED"
     output: out_led

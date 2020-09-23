@@ -10,6 +10,8 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
+  use_address: videoled.ak-online.be
+
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "VideoLED Fallback Hotspot"
@@ -56,9 +58,32 @@ light:
     default_transition_length: 0.5s
     output: out_fet1
 
+remote_transmitter:
+  id: IRTX
+  pin: GPIO12
+  carrier_duty_percent: 50
+
+switch:
+  - platform: template
+    name: tvon
+    turn_on_action:
+      - remote_transmitter.transmit_samsung:
+          data: 0xE0E040BF
+  - platform: template
+    name: ClimateState
+    turn_on_action:
+      remote_transmitter.transmit_nec:
+        address: 0x1218
+        command: 0x2110
+    turn_off_action:
+      remote_transmitter.transmit_nec:
+        address: 0x1218
+        command: 0x80B0
+
 binary_sensor:
   - platform: gpio
-    name: "gpio0"
+    #name: "gpio0"
+    id: gpio0
     pin:
       number: GPIO00
     on_press:
