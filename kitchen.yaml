@@ -60,6 +60,9 @@ i2c:
   scan: True
 
 sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal ESP Kitchen"
+    update_interval: 60s
   - platform: bme280
     temperature:
       name: "BME280 Temperature"

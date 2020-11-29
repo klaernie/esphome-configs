@@ -35,6 +35,11 @@ ota:
 web_server:
   port: 80
 
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal VideoLED"
+    update_interval: 60s
+
 output:
   - platform: gpio
     pin: GPIO02
