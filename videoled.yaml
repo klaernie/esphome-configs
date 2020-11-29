@@ -73,38 +73,3 @@ light:
     id: "underdesk"
     default_transition_length: 0.5s
     output: out_fet2
-
-remote_transmitter:
-  id: IRTX
-  pin: GPIO12
-  carrier_duty_percent: 50
-
-switch:
-  - platform: template
-    name: tvon
-    turn_on_action:
-      - remote_transmitter.transmit_samsung:
-          data: 0xE0E040BF
-  - platform: template
-    name: ClimateState
-    turn_on_action:
-      remote_transmitter.transmit_nec:
-        address: 0x1218
-        command: 0x2110
-    turn_off_action:
-      remote_transmitter.transmit_nec:
-        address: 0x1218
-        command: 0x80B0
-
-binary_sensor:
-  - platform: gpio
-    #name: "gpio0"
-    id: gpio0
-    pin:
-      number: GPIO00
-    on_press:
-      then:
-        - light.turn_on: status
-    on_release:
-      then:
-        - light.turn_off: status
