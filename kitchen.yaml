@@ -81,14 +81,17 @@ light:
     id: "kitchen_light"
     default_transition_length: 0.0s
     output: fake_out
+    gamma_correct: 1.0
   - platform: monochromatic
     id: "back_light"
     default_transition_length: 0.0s
     output: out_back
+    gamma_correct: 1.0
   - platform: monochromatic
     id: "front_light"
     default_transition_length: 0.0s
     output: out_front
+    gamma_correct: 1.0
 
 
 output:
