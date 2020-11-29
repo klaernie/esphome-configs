@@ -7,7 +7,7 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
-  use_address: kitchen.ak-online.be
+  use_address: esp-kitchen.ak-online.be
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
