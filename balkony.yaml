@@ -1,0 +1,58 @@
+esphome:
+  name: balkony
+  platform: ESP8266
+  board: esp12e
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  use_address: esp-balkony.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Balkony Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/balkony
+
+ota:
+
+web_server:
+  port: 80
+
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+  scan: True
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal ESP Balkony"
+    update_interval: 60s
+  - platform: bme280
+    temperature:
+      name: "BME280 Temperature"
+      oversampling: 16x
+    pressure:
+      name: "BME280 Pressure"
+    humidity:
+      name: "BME280 Humidity"
+    address: 0x76
+    update_interval: 30s
+  - platform: bh1750
+    name: "BH1750 Illuminance"
+    address: 0x23
+      #measurement_time: 69
+    update_interval: 30s

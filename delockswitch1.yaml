@@ -1,0 +1,72 @@
+esphome:
+  name: delockswitch1
+  platform: ESP8266
+  board: esp01_1m
+  #platformio_options:
+  #upload_speed: 115200
+
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  use_address: DelockSwitch1.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "DelockSwitch1 Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/DelockSwitch1
+
+ota:
+
+web_server:
+  port: 80
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal DelockSwitch1"
+    update_interval: 60s
+
+output:
+  - platform: gpio
+    pin: GPIO13
+    id: out_led
+    inverted: true
+
+  - platform: gpio
+    id: out_relay
+    pin: GPIO12
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
+
+  - platform: binary
+    name: "Office FloorLamp"
+    id: "DelockSwitch1"
+    output: out_relay
+
+binary_sensor:
+  - platform: gpio
+    #name: "gpio0"
+    id: gpio0
+    pin:
+      number: GPIO00
+    on_press:
+      then:
+        - light.toggle: status
+        - light.toggle: DelockSwitch1
