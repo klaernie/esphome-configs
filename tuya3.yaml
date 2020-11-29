@@ -51,6 +51,9 @@ sensor:
   - platform: wifi_signal
     name: "WiFi Signal tuya3"
     update_interval: 60s
+  - platform: mqtt_subscribe
+    id: "rollerpower"
+    topic: shellies/shellyswitch-9F5EF6/relay/power
 
 output:
   - platform: esp8266_pwm
@@ -83,8 +86,25 @@ binary_sensor:
     on_release:
       then:
         - light.turn_off: yellow_led_light
-  - platform: gpio
+
+  - platform: template
     name: "stop"
+    id: "stop"
+    lambda: |-
+      return false;
+  - platform: template
+    name: "videoled-button"
+    id: "videoled_button"
+    lambda: |-
+      return false;
+  - platform: template
+    name: "underdesk-button"
+    id: "underdesk_button"
+    lambda: |-
+      return false;
+
+  - platform: gpio
+    id: "stopbutton"
     pin:
       number: GPIO03
       inverted: True
@@ -94,6 +114,26 @@ binary_sensor:
     on_release:
       then:
         - light.turn_off: yellow_led_light
+    on_click:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(rollerpower).state > 10;'
+            then:
+              - binary_sensor.template.publish:
+                  id: "stop"
+                  state: ON
+            else:
+              - binary_sensor.template.publish:
+                  id: "videoled_button"
+                  state: ON
+
+    on_double_click:
+      then:
+        - binary_sensor.template.publish:
+            id: "underdesk_button"
+            state: ON
+
   - platform: gpio
     name: "close"
     pin:
