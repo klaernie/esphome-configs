@@ -60,16 +60,16 @@ i2c:
   scan: True
 
 sensor:
-    - platform: bme280
-      temperature:
-        name: "BME280 Temperature"
-        oversampling: 16x
-      pressure:
-        name: "BME280 Pressure"
-      humidity:
-        name: "BME280 Humidity"
-      address: 0x76
-      update_interval: 30s
+  - platform: bme280
+    temperature:
+      name: "BME280 Temperature"
+      oversampling: 16x
+    pressure:
+      name: "BME280 Pressure"
+    humidity:
+      name: "BME280 Humidity"
+    address: 0x76
+    update_interval: 30s
 
 
 light:
