@@ -34,7 +34,7 @@ web_server:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal h801light"
+    name: "WiFi Signal H801 Gamma"
     update_interval: 60s
 
 status_led:
