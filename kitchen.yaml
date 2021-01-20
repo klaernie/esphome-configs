@@ -66,12 +66,12 @@ sensor:
     update_interval: 60s
   - platform: bme280
     temperature:
-      name: "BME280 Temperature"
+      name: "Kitchen Temperature"
       oversampling: 16x
     pressure:
-      name: "BME280 Pressure"
+      name: "Kitchen Pressure"
     humidity:
-      name: "BME280 Humidity"
+      name: "Kitchen Humidity"
     address: 0x76
     update_interval: 30s
 
