@@ -1,5 +1,5 @@
 esphome:
-  name: balkony
+  name: balcony
   platform: ESP8266
   board: esp12e
 
@@ -11,7 +11,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Balkony Fallback Hotspot"
+    ssid: "Balcony Fallback Hotspot"
     password: "h4GKBUNL9pAE"
 
 captive_portal:
@@ -25,7 +25,7 @@ logger:
 mqtt:
   broker: mqtt.ak-online.be
   discovery: true
-  topic_prefix: esphome/balkony
+  topic_prefix: esphome/balcony
 
 ota:
 
@@ -39,20 +39,20 @@ i2c:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal ESP Balkony"
+    name: "WiFi Signal ESP Balcony"
     update_interval: 60s
   - platform: bme280
     temperature:
-      name: "BME280 Temperature"
+      name: "Balcony Temperature"
       oversampling: 16x
     pressure:
-      name: "BME280 Pressure"
+      name: "Balcony Pressure"
     humidity:
-      name: "BME280 Humidity"
+      name: "Balcony Humidity"
     address: 0x76
     update_interval: 30s
   - platform: bh1750
-    name: "BH1750 Illuminance"
+    name: "Balcony Illuminance"
     address: 0x23
       #measurement_time: 69
     update_interval: 30s
