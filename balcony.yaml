@@ -2,6 +2,7 @@ esphome:
   name: balcony
   platform: ESP8266
   board: esp12e
+  esp8266_restore_from_flash: yes
 
 wifi:
   ssid: !secret wifi-ssid
