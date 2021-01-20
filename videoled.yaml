@@ -59,7 +59,6 @@ output:
 light:
   - platform: binary
     id: status
-    name: "Status LED"
     output: out_led
 
   - platform: monochromatic
