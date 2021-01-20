@@ -115,7 +115,9 @@ binary_sensor:
       then:
         - light.turn_off: yellow_led_light
     on_click:
-      then:
+      - min_length: 50ms
+        max_length: 500ms
+        then:
         - if:
             condition:
               lambda: 'return id(rollerpower).state > 10;'
@@ -128,8 +130,9 @@ binary_sensor:
                   id: "videoled_button"
                   state: ON
 
-    on_double_click:
-      then:
+      - min_length: 500ms
+        max_length: 2000ms
+        then:
         - binary_sensor.template.publish:
             id: "underdesk_button"
             state: ON
