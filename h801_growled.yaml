@@ -80,9 +80,11 @@ light:
   - platform: monochromatic
     name: "Growled"
     output: pwm_r
-#  - platform: monochromatic
-#    name: "shelf-top"
-#    output: pwm_g
+  - platform: monochromatic
+    name: "Mini-Herrnhuter"
+    output: pwm_g
+    effects:
+      - flicker:
 #  - platform: monochromatic
 #    name: "B"
 #    output: pwm_b
