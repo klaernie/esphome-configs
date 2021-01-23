@@ -1,0 +1,173 @@
+esphome:
+  name: rgbcontroller_prototype
+  platform: ESP8266
+  board: nodemcuv2
+  #platformio_options:
+  #upload_speed: 115200
+
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  use_address: rgbcontroller_prototype.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "RGB Controller Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+  level: debug
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/rgbcontroller_prototype
+
+  on_json_message:
+    topic: esphome/rgbcontroller_prototype/light/strip/addrset
+    then:
+      - light.addressable_set:
+          id: strip
+          range_from: !lambda 'return x["led"];'
+          range_to: !lambda 'return x["led"];'
+          red: !lambda 'return x["r"];'
+          green: !lambda 'return x["g"];'
+          blue: !lambda 'return x["b"];'
+
+ota:
+
+web_server:
+  port: 80
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal rgbcontroller_prototype"
+    update_interval: 60s
+
+output:
+  - platform: gpio
+    pin: GPIO04
+    id: out_led
+    inverted: true
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
+
+  - platform: fastled_spi
+    id: strip
+    name: strip
+    chipset: APA102
+    data_pin: D6
+    clock_pin: D5
+    num_leds: 30
+    rgb_order: BGR
+
+  - platform: partition
+    name: "CPU1 Block"
+    segments:
+      - id: strip
+        from: 0
+        to: 11
+    effects:
+      - addressable_lambda:
+          name: "Color Shimmer (Red Channel)"
+          update_interval: 16ms
+          lambda: |-
+            static uint8_t xses [30];
+            const uint16_t loop_length = 400;
+            if( initial_run ){
+              for( auto x: xses ){
+                x = -loop_length;
+              }
+            }
+
+            fast_random_set_seed(random_uint32());
+
+            for( int i = 0; i < it.size(); i++ ){
+              // skip over LEDs randomly
+              if( fast_random_8() > 185 ) continue;
+
+              float y = 0.52+0.48*pow(1.21,-pow(xses[i], 2)/35000);
+              int8_t r = ceil(current_color.r * y);
+              it[i] = ESPColor(r,current_color.g,current_color.b);
+              xses[i] += 1;
+              if (xses[i] == loop_length)
+                xses[i] = -loop_length;
+            }
+  - platform: partition
+    name: "CPU2 Block"
+    segments:
+      - id: strip
+        from: 12
+        to: 23
+    effects:
+      - addressable_lambda:
+          name: "Expo Light"
+          update_interval: 16ms
+          lambda: |-
+            static uint8_t xses [30];
+            const uint16_t loop_length = 400;
+            if( initial_run ){
+              for( auto x: xses ){
+                x = -loop_length;
+              }
+            }
+
+            fast_random_set_seed(random_uint32());
+
+            for( int i = 0; i < it.size(); i++ ){
+              // skip over LEDs randomly
+              if( (fast_random_8()/255) > 0.75 ) continue;
+
+              float y = 0.52+0.48*pow(1.21,-pow(xses[i], 2)/35000);
+              int8_t r = ceil(current_color.r * y);
+              it[i] = ESPColor(r,current_color.g,current_color.b);
+              xses[i] += 1;
+              if (xses[i] == loop_length)
+                xses[i] = -loop_length;
+            }
+  - platform: partition
+    name: "Pump"
+    segments:
+      - id: strip
+        from: 24
+        to: 30
+
+    effects:
+      - addressable_lambda:
+          name: CustomFlicker
+          update_interval: 16ms
+          lambda: |-
+            const uint8_t intensity = roundf(0.25 * 255.0f);
+            const uint8_t inv_intensity = 255 - intensity;
+
+            fast_random_set_seed(random_uint32());
+            for (auto var : it) {
+              const uint8_t flicker = fast_random_8() % intensity;
+              // scale down by random factor
+              uint8_t red = var.get().r * (255 - flicker);
+
+              // slowly fade back to "real" value
+              var = (var.get() * inv_intensity) + (current_color * intensity);
+            }
+      - addressable_lambda:
+          name: "Expo Light"
+          update_interval: 16ms
+          lambda: |-
+            static int x = -400;
+            float y = 0.35+0.65*exp(-pow(x, 2)/49000);
+            int8_t r = ceil(current_color.r * y);
+            it.all() = ESPColor(r,current_color.g,current_color.b);
+            x += 1;
+            if (x == 400)
+              x = -400;
