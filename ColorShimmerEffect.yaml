@@ -1,0 +1,31 @@
+addressable_lambda:
+  name: "Color Shimmer (Red Channel)"
+  update_interval: 32ms
+  lambda: |-
+    static int xses [30];
+    const uint16_t loop_length = 400;
+    const uint8_t intensity = 35;
+    const uint8_t inv_intensity = 255-intensity;
+    if( initial_run ){
+      for( auto x: xses ){
+        x = -loop_length;
+      }
+      it.all() = current_color;
+    }
+
+    fast_random_set_seed(random_uint32());
+
+    for( int i = 0; i < it.size(); i++ ){
+      // skip over LEDs randomly
+
+      float y = 0.52+0.48*pow(1.21,-pow(xses[i], 2)/35000);
+      int8_t r = ceil(current_color.r * y);
+      ESPColor regular = ESPColor(r,current_color.g,current_color.b);
+
+
+      it[i] = (it[i].get()*inv_intensity) + (regular*intensity);
+
+      if( fast_random_8() < 205 ) xses[i] += 1;
+      if (xses[i] == loop_length)
+        xses[i] = -loop_length;
+    }
