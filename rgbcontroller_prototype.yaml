@@ -5,6 +5,16 @@ esphome:
   #platformio_options:
   #upload_speed: 115200
 
+  on_boot:
+    priority: -120
+    then:
+      - light.turn_on:
+          id: strip
+          brightness: 100%
+          red: 100%
+          green: 0%
+          blue: 100%
+          effect: "WLED"
 
 wifi:
   ssid: !secret wifi-ssid
@@ -38,9 +48,6 @@ ota:
 
 wled:
 
-e131:
-  method: multicast
-
 web_server:
   port: 80
 
@@ -62,32 +69,11 @@ light:
 
   - platform: fastled_spi
     id: strip
-    name: strip
     chipset: APA102
     data_pin: D6
     clock_pin: D5
     num_leds: 30
     rgb_order: BGR
     effects:
-      - !include ColorShimmerEffect.yaml
-#     - addressable_lambda:
-#          name: "Test Dump"
-#          update_interval: 20s
-#          lambda: |-
-#            for( int i = 0; i < it.size(); i++ ){
-#              ESPColor c = it[i].get();
-#              ESP_LOGD("strip-dump", "led %d is %d,%d,%d", i, c.r, c.g, c.b );
-#            }
-
-  - platform: partition
-    name: "Input Interface"
-    id: input
-    segments:
-      - id: strip
-        from: 0
-        to: 23
-    effects:
       - wled:
-      - e131:
-          universe: 2
-          channels: RGB
+      - !include ColorShimmerEffect.yaml
