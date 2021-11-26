@@ -5,7 +5,7 @@ esphome:
   esp8266_restore_from_flash: yes
 
 wifi:
-  ssid: !secret wifi-ssid
+  ssid: !secret wifi-east
   password: !secret wifi-pwd
 
   use_address: h801-tobi.ak-online.be

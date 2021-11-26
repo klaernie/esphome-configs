@@ -7,7 +7,7 @@ esphome:
 
 
 wifi:
-  ssid: !secret wifi-ssid
+  ssid: !secret wifi-east
   password: !secret wifi-pwd
 
   use_address: videoled.ak-online.be
