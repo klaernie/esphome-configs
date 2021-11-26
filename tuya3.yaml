@@ -15,6 +15,9 @@ wifi:
     ssid: "Tuya3 Fallback Hotspot"
     password: "h4GKBUNL9pAE"
 
+mdns:
+  disabled: true
+
 captive_portal:
 
 # Enable logging
