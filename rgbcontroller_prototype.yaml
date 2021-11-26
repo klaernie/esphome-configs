@@ -56,6 +56,18 @@ sensor:
     name: "WiFi Signal rgbcontroller_prototype"
     update_interval: 60s
 
+  - platform: rotary_encoder
+    name: "Test Rotary Encoder"
+    pin_a: D1
+    pin_b: D2
+    min_value: 0
+    max_value: 255
+
+binary_sensor:
+  - platform: gpio
+    pin: D0
+    name: Test Rotary Encoder Button
+
 output:
   - platform: gpio
     pin: GPIO04
