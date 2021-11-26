@@ -100,12 +100,14 @@ switch:
       - remote_transmitter.transmit_samsung:
           data: 0xE0E040BF
   - platform: template
-    name: ClimateState
+    name: ClimateStateOn
     turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0x1218
         command: 0x2110
-    turn_off_action:
+  - platform: template
+    name: ClimateStateOff
+    turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0x1218
         command: 0x80B0
