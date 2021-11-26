@@ -54,6 +54,64 @@ light:
     id: status
     output: out_led
 
+script:
+  - id: runON
+    then:
+      - light.turn_on:
+          id: herrnhuter
+  - id: runOFF
+    then:
+      - light.turn_off:
+          id: herrnhuter
+          transition_length: 0ms
+  - id: run_toggles
+    then:
+      # turn on to start from the ON state
+      - script.execute: runON
+      - script.wait: runON
+      - delay: 10s
+
+      # start the reset sequence
+      - script.execute: runOFF
+      - script.wait: runOFF
+      - delay: 1s
+      - script.execute: runON
+      - script.wait: runON
+      - delay: 1s
+
+      - script.execute: runOFF
+      - script.wait: runOFF
+      - delay: 1s
+      - script.execute: runON
+      - script.wait: runON
+      - delay: 1s
+
+      - script.execute: runOFF
+      - script.wait: runOFF
+      - delay: 1s
+      - script.execute: runON
+      - script.wait: runON
+      - delay: 1s
+
+      - script.execute: runOFF
+      - script.wait: runOFF
+      - delay: 1s
+      - script.execute: runON
+      - script.wait: runON
+      - delay: 1s
+
+      - script.execute: runOFF
+      - script.wait: runOFF
+      - delay: 1s
+      - script.execute: runON
+      - script.wait: runON
+
+switch:
+  - platform: template
+    name: run zigbee light reset
+    turn_on_action:
+      - script.execute: run_toggles
+
 output:
   - platform: gpio
     pin: GPIO02
