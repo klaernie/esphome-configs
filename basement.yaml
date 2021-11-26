@@ -1,0 +1,66 @@
+esphome:
+  name: basement
+  platform: ESP8266
+  board: esp12e
+  esp8266_restore_from_flash: yes
+
+wifi:
+  ssid: !secret wifi-ssid
+  password: !secret wifi-pwd
+
+  use_address: esp-basement.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Basement Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+mdns:
+  disabled: true
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/basement
+
+ota:
+
+web_server:
+  port: 80
+
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+  scan: True
+
+switch:
+  - platform: restart
+    name: restart
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal ESP Basement"
+    update_interval: 60s
+  - platform: bme280
+    temperature:
+      name: "Basement Temperature"
+      oversampling: 16x
+    pressure:
+      name: "Basement Pressure"
+    humidity:
+      name: "Basement Humidity"
+    address: 0x76
+    update_interval: 30s
+      #  - platform: bh1750
+      #    name: "Basement Illuminance"
+      #    address: 0x23
+      #      #measurement_time: 69
+      #    update_interval: 30s
