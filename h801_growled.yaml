@@ -5,10 +5,10 @@ esphome:
   esp8266_restore_from_flash: yes
 
 wifi:
-  ssid: !secret wifi-ssid
+  ssid: !secret wifi-east
   password: !secret wifi-pwd
 
-  use_address: h801_growled.ak-online.be
+  use_address: h801-growled.ak-online.be
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:

@@ -8,7 +8,7 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
-  use_address: esp-balkony.ak-online.be
+  use_address: esp-balcony.ak-online.be
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:

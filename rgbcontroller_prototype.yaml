@@ -20,7 +20,7 @@ wifi:
   ssid: !secret wifi-ssid
   password: !secret wifi-pwd
 
-  use_address: rgbcontroller_prototype.ak-online.be
+  use_address: rgbcontroller-prototype.ak-online.be
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
