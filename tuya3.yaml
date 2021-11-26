@@ -88,11 +88,6 @@ binary_sensor:
         - light.turn_off: yellow_led_light
 
   - platform: template
-    name: "stop"
-    id: "stop"
-    lambda: |-
-      return false;
-  - platform: template
     name: "videoled-button"
     id: "videoled_button"
     lambda: |-
@@ -122,9 +117,9 @@ binary_sensor:
             condition:
               lambda: 'return id(rollerpower).state > 10;'
             then:
-              - binary_sensor.template.publish:
-                  id: "stop"
-                  state: ON
+              - mqtt.publish:
+                  topic: shellies/shellyswitch-9F5EF6/roller/0/command
+                  payload: stop
             else:
               - binary_sensor.template.publish:
                   id: "videoled_button"
