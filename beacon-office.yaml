@@ -1,0 +1,57 @@
+esphome:
+  name: beacon_office
+  platform: ESP32
+  board: nodemcu-32s
+  #platformio_options:
+  #upload_speed: 115200
+
+wifi:
+  ssid: !secret wifi-east
+  password: !secret wifi-pwd
+
+  use_address: beacon_office.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Beacon Office Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+mdns:
+  disabled: true
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/beacon-office
+
+ota:
+
+web_server:
+  port: 80
+
+esp32_ble_beacon:
+  type: iBeacon
+  uuid: '3132128b-80f2-0c01-a98a-25d8216786cf'
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Beacon Office"
+    update_interval: 60s
+
+output:
+  - platform: gpio
+    pin: GPIO02
+    id: out_led
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
