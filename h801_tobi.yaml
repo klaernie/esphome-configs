@@ -19,6 +19,8 @@ captive_portal:
 
 # Enable logging
 logger:
+  logs:
+    colorloop: info
 
 # Enable Home Assistant API
 #api:
@@ -79,9 +81,48 @@ output:
 light:
   - platform: rgb
     name: "Tobi Bed Moodlight"
+    id: moodlight
     red: pwm_r
     green: pwm_g
     blue: pwm_b
+    effects:
+      - lambda:
+          name: "Nothing Effect"
+          update_interval: 5000ms
+          lambda: |-
+            return;
+      - lambda:
+          name: "Color Loop"
+          update_interval: 500ms
+          lambda: |-
+            ESPHSVColor hsv;
+            hsv.value = 255;
+            hsv.saturation = 240;
+            static uint16_t hue = 0;
+            hue++;
+            if( hue > 360 ){
+              hue = 0;
+            }
+            hsv.hue = hue;
+
+            ESP_LOGD("colorloop",
+              "hue: %d",
+              hue
+            );
+
+
+            ESPColor rgb = hsv.to_rgb();
+
+            ESP_LOGD("colorloop",
+              "hue: %d, makes r%dg%db%d",
+              hue, rgb.r, rgb.g, rgb.b
+            );
+
+            auto call = id(moodlight).turn_on();
+            call.set_transition_length(500);
+            call.set_rgb(rgb.r/255.0, rgb.g/255.0, rgb.b/255.0);
+            call.perform();
+
 #  - platform: monochromatic
 #    name: "downlight"
 #    output: pwm_w1
