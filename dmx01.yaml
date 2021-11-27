@@ -1,0 +1,255 @@
+esphome:
+  name: dmx01
+  platform: ESP32
+  board: nodemcu-32s
+  #platformio_options:
+  #upload_speed: 115200
+
+wifi:
+  ssid: !secret wifi-east
+  password: !secret wifi-pwd
+
+  use_address: esp-dmx01.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "RGB Mainframe Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+
+mdns:
+  disabled: true
+
+logger:
+  logs:
+    dmx512: INFO
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/dmx01
+
+ota:
+
+web_server:
+  port: 80
+
+wled:
+
+external_components:
+  - source: github://andyboeh/esphome-dmx512
+
+uart:
+  id: uart_bus
+  baud_rate: 250000
+  tx_pin: 32
+  stop_bits: 2
+
+dmx512:
+  id: dmx
+  uart_id: uart_bus
+  enable_pin: 33
+  tx_pin: 32
+  uart_num: 1
+
+output:
+  - platform: gpio
+    pin: GPIO02
+    id: out_led
+
+  - platform: dmx512
+    universe: dmx
+    channel: 1
+    id: dmx_ch1_red
+  - platform: dmx512
+    universe: dmx
+    channel: 2
+    id: dmx_ch1_green
+  - platform: dmx512
+    universe: dmx
+    channel: 3
+    id: dmx_ch1_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 4
+    id: dmx_ch2_red
+  - platform: dmx512
+    universe: dmx
+    channel: 5
+    id: dmx_ch2_green
+  - platform: dmx512
+    universe: dmx
+    channel: 6
+    id: dmx_ch2_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 7
+    id: dmx_ch3_red
+  - platform: dmx512
+    universe: dmx
+    channel: 8
+    id: dmx_ch3_green
+  - platform: dmx512
+    universe: dmx
+    channel: 9
+    id: dmx_ch3_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 10
+    id: dmx_ch4_red
+  - platform: dmx512
+    universe: dmx
+    channel: 11
+    id: dmx_ch4_green
+  - platform: dmx512
+    universe: dmx
+    channel: 12
+    id: dmx_ch4_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 13
+    id: dmx_ch5_red
+  - platform: dmx512
+    universe: dmx
+    channel: 14
+    id: dmx_ch5_green
+  - platform: dmx512
+    universe: dmx
+    channel: 15
+    id: dmx_ch5_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 16
+    id: dmx_ch6_red
+  - platform: dmx512
+    universe: dmx
+    channel: 17
+    id: dmx_ch6_green
+  - platform: dmx512
+    universe: dmx
+    channel: 18
+    id: dmx_ch6_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 19
+    id: dmx_ch7_red
+  - platform: dmx512
+    universe: dmx
+    channel: 20
+    id: dmx_ch7_green
+  - platform: dmx512
+    universe: dmx
+    channel: 21
+    id: dmx_ch7_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 22
+    id: dmx_ch8_red
+  - platform: dmx512
+    universe: dmx
+    channel: 23
+    id: dmx_ch8_green
+  - platform: dmx512
+    universe: dmx
+    channel: 24
+    id: dmx_ch8_blue
+
+light:
+  - platform: rgb
+    name: "DMX Bar Light segment1"
+    id: dmx_bar_1
+    gamma_correct: 1.0
+    red: dmx_ch1_red
+    green: dmx_ch1_green
+    blue: dmx_ch1_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment2"
+    id: dmx_bar_2
+    gamma_correct: 1.0
+    red: dmx_ch2_red
+    green: dmx_ch2_green
+    blue: dmx_ch2_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment3"
+    id: dmx_bar_3
+    gamma_correct: 1.0
+    red: dmx_ch3_red
+    green: dmx_ch3_green
+    blue: dmx_ch3_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment4"
+    id: dmx_bar_4
+    gamma_correct: 1.0
+    red: dmx_ch4_red
+    green: dmx_ch4_green
+    blue: dmx_ch4_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment5"
+    id: dmx_bar_5
+    gamma_correct: 1.0
+    red: dmx_ch5_red
+    green: dmx_ch5_green
+    blue: dmx_ch5_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment6"
+    id: dmx_bar_6
+    gamma_correct: 1.0
+    red: dmx_ch6_red
+    green: dmx_ch6_green
+    blue: dmx_ch6_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment7"
+    id: dmx_bar_7
+    gamma_correct: 1.0
+    red: dmx_ch7_red
+    green: dmx_ch7_green
+    blue: dmx_ch7_blue
+
+  - platform: rgb
+    name: "DMX Bar Light segment8"
+    id: dmx_bar_8
+    gamma_correct: 1.0
+    red: dmx_ch8_red
+    green: dmx_ch8_green
+    blue: dmx_ch8_blue
+
+  - platform: partition
+    name: "DMX Bar Light"
+    default_transition_length: 2s
+    gamma_correct: 1.0
+    segments:
+      - single_light_id: dmx_bar_1
+      - single_light_id: dmx_bar_2
+      - single_light_id: dmx_bar_3
+      - single_light_id: dmx_bar_4
+      - single_light_id: dmx_bar_5
+      - single_light_id: dmx_bar_6
+      - single_light_id: dmx_bar_7
+      - single_light_id: dmx_bar_8
+    effects:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+      - !include ColorShimmerEffect.yaml
+
+  - platform: binary
+    id: status
+    output: out_led
+
