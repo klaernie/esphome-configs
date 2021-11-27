@@ -160,4 +160,4 @@ light:
     rgb_order: GRB
     effects:
       - wled:
-      - !include ColorShimmerEffect.yaml
+      - !include effects/ColorShimmerEffect.yaml

@@ -247,7 +247,7 @@ light:
       - addressable_color_wipe:
       - addressable_scan:
       - addressable_twinkle:
-      - !include ColorShimmerEffect.yaml
+      - !include effects/ColorShimmerEffect.yaml
 
   - platform: binary
     id: status

@@ -91,4 +91,4 @@ light:
     rgb_order: BGR
     effects:
       - wled:
-      - !include ColorShimmerEffect.yaml
+      - !include effects/ColorShimmerEffect.yaml
