@@ -37,7 +37,6 @@ ethernet:
   phy_addr: 1
   power_pin: GPIO16
   use_address: rgb-mainframe.ak-online.be
-  enable_mdns: false
 #  manual_ip:
 #    static_ip: 172.16.2.50
 #    gateway: 172.16.0.1
@@ -46,6 +45,8 @@ ethernet:
 #    dns2: 172.16.0.253
 
     #captive_portal:
+mdns:
+  disabled: true
 
 # Enable logging
 logger:
