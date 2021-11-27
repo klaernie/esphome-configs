@@ -81,20 +81,44 @@ remote_transmitter:
 
 light:
   - platform: monochromatic
-    name: "shelf-middle"
+    id: shelf_middle
+    internal: true
     output: pwm_r
+
   - platform: monochromatic
-    name: "shelf-top"
+    id: shelf_top
+    internal: true
     output: pwm_g
+
 #  - platform: monochromatic
 #    name: "B"
 #    output: pwm_b
+#
   - platform: monochromatic
-    name: "downlight"
+    id: downlight
+    internal: true
     output: pwm_w1
+
   - platform: monochromatic
-    name: "shelf-bottom"
+    id: shelf_bottom
+    internal: true
     output: pwm_w2
+
+  - platform: partition
+    name: "Office Shelf"
+    default_transition_length: 2s
+    gamma_correct: 1.0
+    segments:
+      - single_light_id: shelf_top
+      - single_light_id: shelf_middle
+      - single_light_id: shelf_bottom
+      - single_light_id: downlight
+    effects:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+      - !include effects/ColorShimmerEffect.yaml
 
 switch:
   - platform: template
