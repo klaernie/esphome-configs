@@ -80,6 +80,7 @@ light:
 binary_sensor:
   - platform: gpio
     name: "open"
+    entity_category: diagnostic
     pin:
       number: GPIO05
       inverted: True
@@ -93,16 +94,19 @@ binary_sensor:
   - platform: template
     name: "videoled-button"
     id: "videoled_button"
+    entity_category: diagnostic
     lambda: |-
       return false;
   - platform: template
     name: "underdesk-button"
     id: "underdesk_button"
+    entity_category: diagnostic
     lambda: |-
       return false;
 
   - platform: gpio
     id: "stopbutton"
+    entity_category: diagnostic
     pin:
       number: GPIO03
       inverted: True
@@ -137,6 +141,7 @@ binary_sensor:
 
   - platform: gpio
     name: "close"
+    entity_category: diagnostic
     pin:
       number: GPIO12
       inverted: True
