@@ -1,0 +1,163 @@
+esphome:
+  name: rgb_hive
+  platform: ESP32
+  board: nodemcu-32s
+  #platformio_options:
+  #upload_speed: 115200
+
+  on_boot:
+    priority: -120
+    then:
+      - light.turn_on:
+          id: strip
+          brightness: 100%
+          red: 100%
+          green: 0%
+          blue: 100%
+          effect: "WLED"
+
+
+wifi:
+  ssid: !secret wifi-east
+  password: !secret wifi-pwd
+
+  use_address: rgb-hive.ak-online.be
+  enable_mdns: false
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "RGB Hive Fallback Hotspot"
+    password: "h4GKBUNL9pAE"
+
+captive_portal:
+
+# Enable logging
+logger:
+  logs:
+    sensor: info
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/rgb-hive
+
+ota:
+
+web_server:
+  port: 80
+
+wled:
+
+time:
+  - platform: sntp
+    id: sntp_time
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal RGB Hive"
+    update_interval: 60s
+  - platform: duty_cycle
+    pin: GPIO04
+    name: "Hive MB-PWM"
+    update_interval: 5s
+
+  - platform: ntc
+    sensor: resistance_sensor
+    calibration:
+      - 30307.0Ohm ->  5.8°C
+      - 23157.9Ohm -> 12.0°C
+      - 10000.0Ohm -> 25.0°C
+    name: Hive Loop Temperature
+    filters:
+      - filter_out: NaN
+
+
+  - platform: resistance
+    id: resistance_sensor
+    sensor: source_sensor
+    configuration: UPSTREAM
+    resistor: 10kOhm
+  - platform: adc
+    id: source_sensor
+    pin: GPIO34
+    attenuation: 11db
+
+switch:
+  - platform: gpio
+    pin: GPIO05
+    id: ntc_vcc
+
+interval:
+  - interval: 10s
+    then:
+      - switch.turn_on: ntc_vcc
+      - component.update: source_sensor
+      - switch.turn_off: ntc_vcc
+
+output:
+  - platform: gpio
+    pin: GPIO02
+    id: out_led
+
+  - platform: ledc
+    id: fan1
+    pin: GPIO18
+    frequency: 25000 Hz
+  - platform: ledc
+    id: fan2
+    pin: GPIO19
+    frequency: 25000 Hz
+  - platform: ledc
+    id: fan3
+    pin: GPIO23
+    frequency: 25000 Hz
+  - platform: ledc
+    id: fan4
+    pin: GPIO26
+    frequency: 25000 Hz
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
+
+  - platform: monochromatic
+    name: "Hive HDD1/2"
+    id: "fan_pwm1"
+    default_transition_length: 0.5s
+    gamma_correct: 1.0
+    output: fan1
+  - platform: monochromatic
+    name: "Hive HDD3-5"
+    id: "fan_pwm2"
+    default_transition_length: 0.5s
+    gamma_correct: 1.0
+    output: fan4
+  - platform: monochromatic
+    name: "Hive Radiator Fan"
+    id: "fan_pwm3"
+    default_transition_length: 0.5s
+    gamma_correct: 1.0
+    output: fan2
+  - platform: monochromatic
+    name: "Hive PWM4"
+    id: "fan_pwm4"
+    default_transition_length: 0.5s
+    gamma_correct: 1.0
+    output: fan3
+
+  - platform: fastled_clockless
+    id: strip
+    name: "Hive Light"
+    chipset: WS2812B
+    pin: GPIO17
+    # this should be increased once fan is in the chain
+    #num_leds: 30
+    num_leds: 32
+    rgb_order: GRB
+    effects:
+      - wled:
+      - !include ColorShimmerEffect.yaml

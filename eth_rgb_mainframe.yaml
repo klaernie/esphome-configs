@@ -1,0 +1,134 @@
+esphome:
+  name: rgb_mainframe
+  platform: ESP32
+  board: nodemcu-32s
+  #platformio_options:
+  #upload_speed: 115200
+
+  on_boot:
+    priority: -120
+    then:
+      - light.turn_on:
+          id: strip
+          brightness: 100%
+          red: 100%
+          green: 0%
+          blue: 100%
+          effect: "WLED"
+
+
+#wifi:
+#  ssid: !secret wifi-east
+#  password: !secret wifi-pwd
+#
+#  use_address: rgb_mainframe.ak-online.be
+#
+#  # Enable fallback hotspot (captive portal) in case wifi connection fails
+#  ap:
+#    ssid: "RGB Mainframe Fallback Hotspot"
+#    password: "h4GKBUNL9pAE"
+
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO0_IN
+  phy_addr: 1
+  power_pin: GPIO16
+  use_address: rgb-mainframe.ak-online.be
+  enable_mdns: false
+#  manual_ip:
+#    static_ip: 172.16.2.50
+#    gateway: 172.16.0.1
+#    subnet: 255.255.252.0
+#    dns1: 172.16.0.1
+#    dns2: 172.16.0.253
+
+    #captive_portal:
+
+# Enable logging
+logger:
+  # important: disable serial logging, UARTs are taken by eth nic
+  baud_rate: 0
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/rgb-mainframe
+
+ota:
+
+web_server:
+  port: 80
+
+#esp32_ble_beacon:
+#  type: iBeacon
+#  uuid: 'f4feef4e-ca5e-82f4-7e7d-cc3c08fa162f'
+
+wled:
+
+sensor:
+  #  - platform: wifi_signal
+  #  name: "WiFi Signal RGB Mainframe"
+  #  update_interval: 60s
+  - platform: ntc
+    sensor: resistance_sensor
+    calibration:
+      - 30307.0Ohm ->  5.8°C
+      - 23157.9Ohm -> 12.0°C
+      - 10000.0Ohm -> 25.0°C
+    name: Mainframe Loop Temperature
+    filters:
+      - filter_out: NaN
+
+
+  - platform: resistance
+    id: resistance_sensor
+    sensor: source_sensor
+    configuration: UPSTREAM
+    resistor: 9820 Ohm
+
+  - platform: adc
+    id: source_sensor
+    pin: GPIO35
+    attenuation: 11db
+
+switch:
+  - platform: gpio
+    pin: GPIO03
+    id: ntc_vcc
+
+interval:
+  - interval: 10s
+    then:
+      - switch.turn_on: ntc_vcc
+      - delay: 3s
+      - component.update: source_sensor
+      - delay: 3s
+      - switch.turn_off: ntc_vcc
+
+output:
+  - platform: gpio
+    pin: GPIO02
+    id: out_led
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
+
+  - platform: fastled_clockless
+    id: strip
+    chipset: WS2812B
+    pin: GPIO15
+    # this should be increased once fan is in the chain
+    #num_leds: 30
+    num_leds: 32
+    rgb_order: GRB
+    effects:
+      - wled:
+      - !include ColorShimmerEffect.yaml
