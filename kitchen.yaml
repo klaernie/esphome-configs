@@ -13,7 +13,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Kitchen Fallback Hotspot"
-    password: "h4GKBUNL9pAE"
+    password: !secret fallback-password
 
 mdns:
   disabled: true

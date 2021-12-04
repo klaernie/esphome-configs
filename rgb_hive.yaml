@@ -27,7 +27,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "RGB Hive Fallback Hotspot"
-    password: "h4GKBUNL9pAE"
+    password: !secret fallback-password
 
 captive_portal:
 
