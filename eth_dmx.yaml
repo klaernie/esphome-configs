@@ -149,7 +149,6 @@ light:
   - platform: rgb
     name: "DMX Light addr1"
     id: dmx_light_addr1
-    default_transition_length: 2s
     gamma_correct: 1.0
     red: dmx_ch1_red
     green: dmx_ch1_green
@@ -166,7 +165,6 @@ light:
   - platform: rgb
     name: "DMX Light addr8"
     id: dmx_light_addr8
-    default_transition_length: 2s
     gamma_correct: 1.0
     red: dmx_ch2_red
     green: dmx_ch2_green
@@ -183,7 +181,6 @@ light:
   - platform: rgb
     name: "DMX Light addr15"
     id: dmx_light_addr15
-    default_transition_length: 2s
     gamma_correct: 1.0
     red: dmx_ch3_red
     green: dmx_ch3_green
@@ -200,7 +197,6 @@ light:
   - platform: rgb
     name: "DMX Light addr27"
     id: dmx_light_addr27
-    default_transition_length: 2s
     gamma_correct: 1.0
     red: dmx_ch4_red
     green: dmx_ch4_green
@@ -213,6 +209,48 @@ light:
       - output.set_level:
           id: dmx_ch4_brightness
           level: 0%
+
+  - platform: partition
+    name: "DMX Growlights"
+    gamma_correct: 1.0
+    segments:
+      - single_light_id: dmx_light_addr1
+      - single_light_id: dmx_light_addr8
+      - single_light_id: dmx_light_addr15
+      - single_light_id: dmx_light_addr27
+    effects:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+      - !include effects/ColorShimmerEffect.yaml
+    on_turn_on:
+      - output.set_level:
+          id: dmx_ch1_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch2_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch3_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch4_brightness
+          level: 100%
+    on_turn_off:
+      - output.set_level:
+          id: dmx_ch1_brightness
+          level: 0%
+      - output.set_level:
+          id: dmx_ch2_brightness
+          level: 0%
+      - output.set_level:
+          id: dmx_ch3_brightness
+          level: 0%
+      - output.set_level:
+          id: dmx_ch4_brightness
+          level: 0%
+
 
   - platform: binary
     id: status
