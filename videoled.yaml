@@ -64,6 +64,7 @@ light:
   - platform: binary
     id: status
     output: out_led
+    entity_category: diagnostic
 
   - platform: monochromatic
     name: "Video LED"
