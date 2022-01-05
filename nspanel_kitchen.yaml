@@ -1,0 +1,137 @@
+esphome:
+  name: nsp-kitchen
+
+esp32:
+  board: esp32dev
+
+wifi:
+  ssid: !secret wifi-east
+  password: !secret wifi-pwd
+
+  use_address: nsp-kitchen.ak-online.be
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "NSPanel Kitchen Fallback Hotspot"
+    password: !secret fallback-password
+
+mdns:
+  disabled: true
+
+time:
+  - platform: sntp
+    id: sntp_time
+    servers:
+      - 172.16.0.1
+
+api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/nsp-kitchen
+
+logger:
+
+ota:
+
+web_server:
+  port: 80
+
+uart:
+  tx_pin: 16
+  rx_pin: 17
+  baud_rate: 115200
+
+external_components:
+  - source: github://pr#2702
+    components: ["nspanel"]
+
+nspanel:
+  id: nspanel_id
+  time_id: sntp_time
+  temperature: temperature
+  eco_mode_switch: eco_mode
+  screen_power_switch: screen_power
+  relays:
+    - relay_1
+    - relay_2
+
+binary_sensor:
+  - platform: gpio
+    name: Left Button
+    pin:
+      number: 14
+      inverted: true
+    on_click:
+      - switch.toggle: relay_1
+
+  - platform: gpio
+    name: Right Button
+    pin:
+      number: 27
+      inverted: true
+    on_click:
+      - switch.toggle: relay_2
+
+output:
+  - platform: ledc
+    id: buzzer_out
+    pin:
+      number: 21
+
+switch:
+  - platform: gpio
+    name: Relay 1
+    id: relay_1
+    pin:
+      number: 22
+
+  - platform: gpio
+    name: Relay 2
+    id: relay_2
+    pin:
+      number: 19
+
+  - platform: gpio
+    name: Screen Power
+    id: screen_power
+    entity_category: config
+    pin:
+      number: 4
+      inverted: true
+    restore_mode: ALWAYS_ON
+
+  - platform: template
+    name: NSPanel Energy Saving Mode
+    id: eco_mode
+    entity_category: config
+    restore_state: true
+    optimistic: true
+
+rtttl:
+  id: buzzer
+  output: buzzer_out
+
+
+sensor:
+  - platform: adc
+    id: ntc_source
+    pin: 38
+    update_interval: 10s
+    attenuation: 11db
+
+  - platform: resistance
+    id: resistance_sensor
+    sensor: ntc_source
+    configuration: DOWNSTREAM
+    resistor: 11.2kOhm
+
+  - platform: ntc
+    id: temperature
+    sensor: resistance_sensor
+    calibration:
+      b_constant: 3950
+      reference_temperature: 25°C
+      reference_resistance: 10kOhm
+    name: "Kitchen Panel Temperature"
