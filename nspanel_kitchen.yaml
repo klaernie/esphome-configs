@@ -44,18 +44,42 @@ uart:
   baud_rate: 115200
 
 external_components:
-  - source: github://pr#2702
-    components: ["nspanel"]
+  - source: github://pr#2956
+    components: ["nextion"]
 
-nspanel:
-  id: nspanel_id
-  time_id: sntp_time
-  temperature: temperature
-  eco_mode_switch: eco_mode
-  screen_power_switch: screen_power
-  relays:
-    - relay_1
-    - relay_2
+display:
+  - platform: nextion
+    id: disp
+    update_interval: 250ms
+    tft_url:  http://172.16.0.253/kitchen.tft
+    lambda: |-
+      static int first_run = 1;
+
+      auto time = id(sntp_time).now();
+
+      // don't do our first run, if the time is not valid yet
+      if( ! time.is_valid() ) return;
+
+      // update when starting and when it's midnight
+      if( first_run || time.hour == 0 && time.minute == 0 && time.second == 0) {
+        it.set_component_value("day", time.day_of_month);
+        it.set_component_text("weekday", time.strftime("%a").c_str());
+      }
+
+      // update only once on the first minute of an hour
+      if( first_run || time.minute == 0 && time.second == 0 ) it.set_component_value("hour", time.hour);
+
+      // update only once every 15sec
+      if( first_run || time.second % 15 == 0 ) it.set_component_value("minute", time.minute);
+
+      // update each interval
+      it.set_component_value("second", time.second);
+
+      // update once a minute
+      if( first_run || time.second == 0 ) it.set_component_value("temperature", id(temperature).state);
+
+      // disable the forced update only needed on first run
+      first_run = 0;
 
 binary_sensor:
   - platform: gpio
@@ -63,16 +87,12 @@ binary_sensor:
     pin:
       number: 14
       inverted: true
-    on_click:
-      - switch.toggle: relay_1
 
   - platform: gpio
     name: Right Button
     pin:
       number: 27
       inverted: true
-    on_click:
-      - switch.toggle: relay_2
 
 output:
   - platform: ledc
@@ -86,12 +106,14 @@ switch:
     id: relay_1
     pin:
       number: 22
+    restore_mode: ALWAYS_ON
 
   - platform: gpio
     name: Relay 2
     id: relay_2
     pin:
       number: 19
+    restore_mode: ALWAYS_ON
 
   - platform: gpio
     name: Screen Power
@@ -103,11 +125,11 @@ switch:
     restore_mode: ALWAYS_ON
 
   - platform: template
-    name: NSPanel Energy Saving Mode
-    id: eco_mode
+    name: Upload TFT file
     entity_category: config
-    restore_state: true
-    optimistic: true
+    lambda: "return false;"
+    turn_on_action:
+      - lambda: 'id(disp)->upload_tft();'
 
 rtttl:
   id: buzzer
