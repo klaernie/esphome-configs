@@ -81,18 +81,57 @@ display:
       // disable the forced update only needed on first run
       first_run = 0;
 
+script:
+  - id: flip_the_breaker
+    then:
+      - switch.turn_off: relay_1
+      - delay: 2s
+      - switch.turn_on: relay_1
+
+
 binary_sensor:
   - platform: gpio
-    name: Left Button
+    id: left_button
     pin:
       number: 14
       inverted: true
+    on_click:
+      - if:
+          condition:
+              mqtt.connected:
+          then:
+            - binary_sensor.template.publish:
+                id: mainlight_switch
+                state: ON
+          else:
+            - logger.log: "no MQTT, performing relay powercycle"
+            - script.execute: flip_the_breaker
+    on_double_click:
+      - script.execute: flip_the_breaker
 
   - platform: gpio
-    name: Right Button
+    id: right_button
     pin:
       number: 27
       inverted: true
+    on_click:
+      - binary_sensor.template.publish:
+          id: counter_switch
+          state: ON
+
+  - platform: template
+    name: Kitchen Main Light Switch
+    id: mainlight_switch
+    entity_category: config
+    lambda: |-
+      return false;
+
+  - platform: template
+    name: Kitchen Counter Light Switch
+    id: counter_switch
+    entity_category: config
+    lambda: |-
+      return false;
 
 output:
   - platform: ledc
@@ -118,7 +157,7 @@ switch:
     entity_category: config
 
   - platform: gpio
-    name: Screen Power
+    name: Kitchen Panel Screen Power
     id: screen_power
     entity_category: config
     pin:
@@ -127,7 +166,7 @@ switch:
     restore_mode: ALWAYS_ON
 
   - platform: template
-    name: Upload TFT file
+    name: Kitchen Panel Upload TFT file
     entity_category: config
     lambda: "return false;"
     turn_on_action:
