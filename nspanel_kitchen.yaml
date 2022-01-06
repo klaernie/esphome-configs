@@ -107,6 +107,7 @@ switch:
     pin:
       number: 22
     restore_mode: ALWAYS_ON
+    entity_category: config
 
   - platform: gpio
     name: Relay 2
@@ -114,6 +115,7 @@ switch:
     pin:
       number: 19
     restore_mode: ALWAYS_ON
+    entity_category: config
 
   - platform: gpio
     name: Screen Power
