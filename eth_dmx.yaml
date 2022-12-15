@@ -1,5 +1,5 @@
 esphome:
-  name: dmx
+  name: eth_dmx
   platform: ESP32
   board: nodemcu-32s
   #platformio_options:
@@ -80,74 +80,242 @@ output:
   - platform: dmx512
     universe: dmx
     channel: 1
-    id: dmx_ch1_brightness
+    id: dmxbar_ch1_red
   - platform: dmx512
     universe: dmx
     channel: 2
-    id: dmx_ch1_red
+    id: dmxbar_ch1_green
   - platform: dmx512
     universe: dmx
     channel: 3
-    id: dmx_ch1_green
+    id: dmxbar_ch1_blue
+
   - platform: dmx512
     universe: dmx
     channel: 4
+    id: dmxbar_ch2_red
+  - platform: dmx512
+    universe: dmx
+    channel: 5
+    id: dmxbar_ch2_green
+  - platform: dmx512
+    universe: dmx
+    channel: 6
+    id: dmxbar_ch2_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 7
+    id: dmxbar_ch3_red
+  - platform: dmx512
+    universe: dmx
+    channel: 8
+    id: dmxbar_ch3_green
+  - platform: dmx512
+    universe: dmx
+    channel: 9
+    id: dmxbar_ch3_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 10
+    id: dmxbar_ch4_red
+  - platform: dmx512
+    universe: dmx
+    channel: 11
+    id: dmxbar_ch4_green
+  - platform: dmx512
+    universe: dmx
+    channel: 12
+    id: dmxbar_ch4_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 13
+    id: dmxbar_ch5_red
+  - platform: dmx512
+    universe: dmx
+    channel: 14
+    id: dmxbar_ch5_green
+  - platform: dmx512
+    universe: dmx
+    channel: 15
+    id: dmxbar_ch5_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 16
+    id: dmxbar_ch6_red
+  - platform: dmx512
+    universe: dmx
+    channel: 17
+    id: dmxbar_ch6_green
+  - platform: dmx512
+    universe: dmx
+    channel: 18
+    id: dmxbar_ch6_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 19
+    id: dmxbar_ch7_red
+  - platform: dmx512
+    universe: dmx
+    channel: 20
+    id: dmxbar_ch7_green
+  - platform: dmx512
+    universe: dmx
+    channel: 21
+    id: dmxbar_ch7_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 22
+    id: dmxbar_ch8_red
+  - platform: dmx512
+    universe: dmx
+    channel: 23
+    id: dmxbar_ch8_green
+  - platform: dmx512
+    universe: dmx
+    channel: 24
+    id: dmxbar_ch8_blue
+
+  - platform: dmx512
+    universe: dmx
+    channel: 25
+    id: dmx_ch1_brightness
+  - platform: dmx512
+    universe: dmx
+    channel: 26
+    id: dmx_ch1_red
+  - platform: dmx512
+    universe: dmx
+    channel: 27
+    id: dmx_ch1_green
+  - platform: dmx512
+    universe: dmx
+    channel: 28
     id: dmx_ch1_blue
 
   - platform: dmx512
     universe: dmx
-    channel: 8
+    channel: 32
     id: dmx_ch2_brightness
   - platform: dmx512
     universe: dmx
-    channel: 9
+    channel: 33
     id: dmx_ch2_red
   - platform: dmx512
     universe: dmx
-    channel: 10
+    channel: 34
     id: dmx_ch2_green
   - platform: dmx512
     universe: dmx
-    channel: 11
+    channel: 35
     id: dmx_ch2_blue
 
   - platform: dmx512
     universe: dmx
-    channel: 15
+    channel: 39
     id: dmx_ch3_brightness
   - platform: dmx512
     universe: dmx
-    channel: 16
+    channel: 40
     id: dmx_ch3_red
   - platform: dmx512
     universe: dmx
-    channel: 17
+    channel: 41
     id: dmx_ch3_green
   - platform: dmx512
     universe: dmx
-    channel: 18
+    channel: 42
     id: dmx_ch3_blue
 
   - platform: dmx512
     universe: dmx
-    channel: 27
+    channel: 46
     id: dmx_ch4_brightness
   - platform: dmx512
     universe: dmx
-    channel: 28
+    channel: 47
     id: dmx_ch4_red
   - platform: dmx512
     universe: dmx
-    channel: 29
+    channel: 48
     id: dmx_ch4_green
   - platform: dmx512
     universe: dmx
-    channel: 30
+    channel: 49
     id: dmx_ch4_blue
 
 light:
   - platform: rgb
-    name: "DMX Light addr1"
+    name: "Growlight 01 - Bar 1"
+    id: dmxbar_bar_1
+    gamma_correct: 1.0
+    red: dmxbar_ch1_red
+    green: dmxbar_ch1_green
+    blue: dmxbar_ch1_blue
+
+  - platform: rgb
+    name: "Growlight 02 - Bar 2"
+    id: dmxbar_bar_2
+    gamma_correct: 1.0
+    red: dmxbar_ch2_red
+    green: dmxbar_ch2_green
+    blue: dmxbar_ch2_blue
+
+  - platform: rgb
+    name: "Growlight 03 - Bar 3"
+    id: dmxbar_bar_3
+    gamma_correct: 1.0
+    red: dmxbar_ch3_red
+    green: dmxbar_ch3_green
+    blue: dmxbar_ch3_blue
+
+  - platform: rgb
+    name: "Growlight 04 - Bar 4"
+    id: dmxbar_bar_4
+    gamma_correct: 1.0
+    red: dmxbar_ch4_red
+    green: dmxbar_ch4_green
+    blue: dmxbar_ch4_blue
+
+  - platform: rgb
+    name: "Growlight 05 - Bar 5"
+    id: dmxbar_bar_5
+    gamma_correct: 1.0
+    red: dmxbar_ch5_red
+    green: dmxbar_ch5_green
+    blue: dmxbar_ch5_blue
+
+  - platform: rgb
+    name: "Growlight 06 - Bar 6"
+    id: dmxbar_bar_6
+    gamma_correct: 1.0
+    red: dmxbar_ch6_red
+    green: dmxbar_ch6_green
+    blue: dmxbar_ch6_blue
+
+  - platform: rgb
+    name: "Growlight 07 - Bar 7"
+    id: dmxbar_bar_7
+    gamma_correct: 1.0
+    red: dmxbar_ch7_red
+    green: dmxbar_ch7_green
+    blue: dmxbar_ch7_blue
+
+  - platform: rgb
+    name: "Growlight 08 - Bar 8"
+    id: dmxbar_bar_8
+    gamma_correct: 1.0
+    red: dmxbar_ch8_red
+    green: dmxbar_ch8_green
+    blue: dmxbar_ch8_blue
+
+  - platform: rgb
+    name: "Growlight 09 - Light 25"
     id: dmx_light_addr1
     gamma_correct: 1.0
     red: dmx_ch1_red
@@ -163,7 +331,7 @@ light:
           level: 0%
 
   - platform: rgb
-    name: "DMX Light addr8"
+    name: "Growlight 10 - Light 32"
     id: dmx_light_addr8
     gamma_correct: 1.0
     red: dmx_ch2_red
@@ -179,7 +347,7 @@ light:
           level: 0%
 
   - platform: rgb
-    name: "DMX Light addr15"
+    name: "Growlight 11 - Light 39"
     id: dmx_light_addr15
     gamma_correct: 1.0
     red: dmx_ch3_red
@@ -195,7 +363,7 @@ light:
           level: 0%
 
   - platform: rgb
-    name: "DMX Light addr27"
+    name: "Growlight 12 - Light 46"
     id: dmx_light_addr27
     gamma_correct: 1.0
     red: dmx_ch4_red
@@ -214,6 +382,14 @@ light:
     name: "DMX Growlights"
     gamma_correct: 1.0
     segments:
+      - single_light_id: dmxbar_bar_1
+      - single_light_id: dmxbar_bar_2
+      - single_light_id: dmxbar_bar_3
+      - single_light_id: dmxbar_bar_4
+      - single_light_id: dmxbar_bar_5
+      - single_light_id: dmxbar_bar_6
+      - single_light_id: dmxbar_bar_7
+      - single_light_id: dmxbar_bar_8
       - single_light_id: dmx_light_addr1
       - single_light_id: dmx_light_addr8
       - single_light_id: dmx_light_addr15
