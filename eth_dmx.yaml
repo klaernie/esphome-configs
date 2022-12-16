@@ -5,6 +5,22 @@ esphome:
   #platformio_options:
   #upload_speed: 115200
 
+  on_boot:
+    priority: 100
+    then:
+      - output.set_level:
+          id: dmx_ch1_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch2_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch3_brightness
+          level: 100%
+      - output.set_level:
+          id: dmx_ch4_brightness
+          level: 100%
+
 #wifi:
 #  ssid: !secret wifi-east
 #  password: !secret wifi-pwd
@@ -330,14 +346,6 @@ light:
     red: dmx_ch1_red
     green: dmx_ch1_green
     blue: dmx_ch1_blue
-    on_turn_on:
-      - output.set_level:
-          id: dmx_ch1_brightness
-          level: 100%
-    on_turn_off:
-      - output.set_level:
-          id: dmx_ch1_brightness
-          level: 0%
 
   - platform: rgb
     name: "Growlight 10 - Light 32"
@@ -347,14 +355,6 @@ light:
     red: dmx_ch2_red
     green: dmx_ch2_green
     blue: dmx_ch2_blue
-    on_turn_on:
-      - output.set_level:
-          id: dmx_ch2_brightness
-          level: 100%
-    on_turn_off:
-      - output.set_level:
-          id: dmx_ch2_brightness
-          level: 0%
 
   - platform: rgb
     name: "Growlight 11 - Light 39"
@@ -364,14 +364,6 @@ light:
     red: dmx_ch3_red
     green: dmx_ch3_green
     blue: dmx_ch3_blue
-    on_turn_on:
-      - output.set_level:
-          id: dmx_ch3_brightness
-          level: 100%
-    on_turn_off:
-      - output.set_level:
-          id: dmx_ch3_brightness
-          level: 0%
 
   - platform: rgb
     name: "Growlight 12 - Light 46"
@@ -381,14 +373,6 @@ light:
     red: dmx_ch4_red
     green: dmx_ch4_green
     blue: dmx_ch4_blue
-    on_turn_on:
-      - output.set_level:
-          id: dmx_ch4_brightness
-          level: 100%
-    on_turn_off:
-      - output.set_level:
-          id: dmx_ch4_brightness
-          level: 0%
 
   - platform: partition
     name: "DMX Growlights"
@@ -412,32 +396,6 @@ light:
       - addressable_scan:
       - addressable_twinkle:
      #- !include effects/ColorShimmerEffect.yaml
-    on_turn_on:
-      - output.set_level:
-          id: dmx_ch1_brightness
-          level: 100%
-      - output.set_level:
-          id: dmx_ch2_brightness
-          level: 100%
-      - output.set_level:
-          id: dmx_ch3_brightness
-          level: 100%
-      - output.set_level:
-          id: dmx_ch4_brightness
-          level: 100%
-    on_turn_off:
-      - output.set_level:
-          id: dmx_ch1_brightness
-          level: 0%
-      - output.set_level:
-          id: dmx_ch2_brightness
-          level: 0%
-      - output.set_level:
-          id: dmx_ch3_brightness
-          level: 0%
-      - output.set_level:
-          id: dmx_ch4_brightness
-          level: 0%
 
 
   - platform: binary
