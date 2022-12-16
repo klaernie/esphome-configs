@@ -411,7 +411,7 @@ light:
       - addressable_color_wipe:
       - addressable_scan:
       - addressable_twinkle:
-      - !include effects/ColorShimmerEffect.yaml
+     #- !include effects/ColorShimmerEffect.yaml
     on_turn_on:
       - output.set_level:
           id: dmx_ch1_brightness
