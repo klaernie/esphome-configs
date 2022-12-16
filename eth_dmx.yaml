@@ -252,6 +252,7 @@ output:
 light:
   - platform: rgb
     name: "Growlight 01 - Bar 1"
+    internal: true
     id: dmxbar_bar_1
     gamma_correct: 1.0
     red: dmxbar_ch1_red
@@ -260,6 +261,7 @@ light:
 
   - platform: rgb
     name: "Growlight 02 - Bar 2"
+    internal: true
     id: dmxbar_bar_2
     gamma_correct: 1.0
     red: dmxbar_ch2_red
@@ -268,6 +270,7 @@ light:
 
   - platform: rgb
     name: "Growlight 03 - Bar 3"
+    internal: true
     id: dmxbar_bar_3
     gamma_correct: 1.0
     red: dmxbar_ch3_red
@@ -276,6 +279,7 @@ light:
 
   - platform: rgb
     name: "Growlight 04 - Bar 4"
+    internal: true
     id: dmxbar_bar_4
     gamma_correct: 1.0
     red: dmxbar_ch4_red
@@ -284,6 +288,7 @@ light:
 
   - platform: rgb
     name: "Growlight 05 - Bar 5"
+    internal: true
     id: dmxbar_bar_5
     gamma_correct: 1.0
     red: dmxbar_ch5_red
@@ -292,6 +297,7 @@ light:
 
   - platform: rgb
     name: "Growlight 06 - Bar 6"
+    internal: true
     id: dmxbar_bar_6
     gamma_correct: 1.0
     red: dmxbar_ch6_red
@@ -300,6 +306,7 @@ light:
 
   - platform: rgb
     name: "Growlight 07 - Bar 7"
+    internal: true
     id: dmxbar_bar_7
     gamma_correct: 1.0
     red: dmxbar_ch7_red
@@ -308,6 +315,7 @@ light:
 
   - platform: rgb
     name: "Growlight 08 - Bar 8"
+    internal: true
     id: dmxbar_bar_8
     gamma_correct: 1.0
     red: dmxbar_ch8_red
@@ -316,6 +324,7 @@ light:
 
   - platform: rgb
     name: "Growlight 09 - Light 25"
+    internal: true
     id: dmx_light_addr1
     gamma_correct: 1.0
     red: dmx_ch1_red
@@ -332,6 +341,7 @@ light:
 
   - platform: rgb
     name: "Growlight 10 - Light 32"
+    internal: true
     id: dmx_light_addr8
     gamma_correct: 1.0
     red: dmx_ch2_red
@@ -348,6 +358,7 @@ light:
 
   - platform: rgb
     name: "Growlight 11 - Light 39"
+    internal: true
     id: dmx_light_addr15
     gamma_correct: 1.0
     red: dmx_ch3_red
@@ -364,6 +375,7 @@ light:
 
   - platform: rgb
     name: "Growlight 12 - Light 46"
+    internal: true
     id: dmx_light_addr27
     gamma_correct: 1.0
     red: dmx_ch4_red
