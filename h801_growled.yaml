@@ -74,33 +74,48 @@ output:
     pin: 01
     id: green_led
 
-#remote_transmitter:
-#  id: IRTX
-#  pin: GPIO12
-#  carrier_duty_percent: 50
-
 light:
   - platform: monochromatic
-    name: "Growled"
+    name: "Hallway Shelf Strip 1"
+    id: strip1
+    internal: true
     output: pwm_r
+    restore_mode: ALWAYS_OFF
   - platform: monochromatic
-    name: "Mini-Herrnhuter"
+    name: "Hallway Shelf Strip 2"
+    id: strip2
+    internal: true
     output: pwm_g
-    effects:
-      - flicker:
-#  - platform: monochromatic
-#    name: "B"
-#    output: pwm_b
-#  - platform: monochromatic
-#    name: "downlight"
-#    output: pwm_w1
-#  - platform: monochromatic
-#    name: "shelf-bottom"
-#    output: pwm_w2
+    restore_mode: ALWAYS_OFF
+  - platform: monochromatic
+    name: "Hallway Shelf Strip 3"
+    id: strip3
+    internal: true
+    output: pwm_b
+    restore_mode: ALWAYS_OFF
+  - platform: monochromatic
+    name: "Hallway Shelf Strip 4"
+    id: strip4
+    internal: true
+    output: pwm_w2
+    restore_mode: ALWAYS_OFF
 
-#switch:
-#  - platform: template
-#    name: tvon
-#    turn_on_action:
-#      - remote_transmitter.transmit_samsung:
-#          data: 0xE0E040BF
+  - platform: partition
+    name: "Hallway Shelf"
+    default_transition_length: 2s
+    #gamma_correct: 1.0
+    segments:
+      - single_light_id: strip1
+      - single_light_id: strip2
+      - single_light_id: strip3
+      - single_light_id: strip4
+    effects:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+     #- !include effects/ColorShimmerEffect.yaml
+
+  - platform: monochromatic
+    name: "Hallway Shelf Toplight"
+    output: pwm_w1
