@@ -21,6 +21,7 @@ mdns:
   disabled: true
 
 logger:
+  baud_rate: 0
   logs:
     dmx512: INFO
 
@@ -47,6 +48,13 @@ uart:
   baud_rate: 250000
   tx_pin: 32
   stop_bits: 2
+#  debug:
+#    direction: TX
+#    dummy_receiver: false
+#    after:
+#      timeout: 100ms
+#    sequence:
+#      - lambda: UARTDebug::log_hex(direction, bytes, ' ');
 
 dmx512:
   id: dmx
@@ -54,6 +62,8 @@ dmx512:
   enable_pin: 33
   tx_pin: 32
   uart_num: 1
+  force_full_frames: false
+  update_interval: 500
 
 output:
   - platform: gpio
@@ -63,193 +73,178 @@ output:
   - platform: dmx512
     universe: dmx
     channel: 1
-    id: dmx_ch1_red
+    id: dmx_ch001
   - platform: dmx512
     universe: dmx
     channel: 2
-    id: dmx_ch1_green
+    id: dmx_ch002
   - platform: dmx512
     universe: dmx
     channel: 3
-    id: dmx_ch1_blue
-
+    id: dmx_ch003
   - platform: dmx512
     universe: dmx
     channel: 4
-    id: dmx_ch2_red
+    id: dmx_ch004
   - platform: dmx512
     universe: dmx
     channel: 5
-    id: dmx_ch2_green
+    id: dmx_ch005
   - platform: dmx512
     universe: dmx
     channel: 6
-    id: dmx_ch2_blue
-
+    id: dmx_ch006
   - platform: dmx512
     universe: dmx
     channel: 7
-    id: dmx_ch3_red
+    id: dmx_ch007
   - platform: dmx512
     universe: dmx
     channel: 8
-    id: dmx_ch3_green
+    id: dmx_ch008
   - platform: dmx512
     universe: dmx
     channel: 9
-    id: dmx_ch3_blue
+    id: dmx_ch009
 
   - platform: dmx512
     universe: dmx
     channel: 10
-    id: dmx_ch4_red
+    id: dmx_ch010
   - platform: dmx512
     universe: dmx
     channel: 11
-    id: dmx_ch4_green
+    id: dmx_ch011
   - platform: dmx512
     universe: dmx
     channel: 12
-    id: dmx_ch4_blue
+    id: dmx_ch012
 
   - platform: dmx512
     universe: dmx
     channel: 13
-    id: dmx_ch5_red
+    id: dmx_ch013
   - platform: dmx512
     universe: dmx
     channel: 14
-    id: dmx_ch5_green
+    id: dmx_ch014
   - platform: dmx512
     universe: dmx
     channel: 15
-    id: dmx_ch5_blue
+    id: dmx_ch015
 
   - platform: dmx512
     universe: dmx
     channel: 16
-    id: dmx_ch6_red
+    id: dmx_ch016
   - platform: dmx512
     universe: dmx
     channel: 17
-    id: dmx_ch6_green
+    id: dmx_ch017
   - platform: dmx512
     universe: dmx
     channel: 18
-    id: dmx_ch6_blue
+    id: dmx_ch018
 
   - platform: dmx512
     universe: dmx
     channel: 19
-    id: dmx_ch7_red
+    id: dmx_ch019
   - platform: dmx512
     universe: dmx
     channel: 20
-    id: dmx_ch7_green
+    id: dmx_ch020
   - platform: dmx512
     universe: dmx
     channel: 21
-    id: dmx_ch7_blue
+    id: dmx_ch021
 
   - platform: dmx512
     universe: dmx
     channel: 22
-    id: dmx_ch8_red
+    id: dmx_ch022
   - platform: dmx512
     universe: dmx
     channel: 23
-    id: dmx_ch8_green
+    id: dmx_ch023
   - platform: dmx512
     universe: dmx
     channel: 24
-    id: dmx_ch8_blue
+    id: dmx_ch024
 
 light:
-  - platform: rgb
-    name: "DMX Bar Light segment1"
-    id: dmx_bar_1
-    gamma_correct: 1.0
-    red: dmx_ch1_red
-    green: dmx_ch1_green
-    blue: dmx_ch1_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment2"
-    id: dmx_bar_2
-    gamma_correct: 1.0
-    red: dmx_ch2_red
-    green: dmx_ch2_green
-    blue: dmx_ch2_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment3"
-    id: dmx_bar_3
-    gamma_correct: 1.0
-    red: dmx_ch3_red
-    green: dmx_ch3_green
-    blue: dmx_ch3_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment4"
-    id: dmx_bar_4
-    gamma_correct: 1.0
-    red: dmx_ch4_red
-    green: dmx_ch4_green
-    blue: dmx_ch4_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment5"
-    id: dmx_bar_5
-    gamma_correct: 1.0
-    red: dmx_ch5_red
-    green: dmx_ch5_green
-    blue: dmx_ch5_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment6"
-    id: dmx_bar_6
-    gamma_correct: 1.0
-    red: dmx_ch6_red
-    green: dmx_ch6_green
-    blue: dmx_ch6_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment7"
-    id: dmx_bar_7
-    gamma_correct: 1.0
-    red: dmx_ch7_red
-    green: dmx_ch7_green
-    blue: dmx_ch7_blue
-
-  - platform: rgb
-    name: "DMX Bar Light segment8"
-    id: dmx_bar_8
-    gamma_correct: 1.0
-    red: dmx_ch8_red
-    green: dmx_ch8_green
-    blue: dmx_ch8_blue
-
-  - platform: partition
-    name: "DMX Bar Light"
-    default_transition_length: 2s
-    gamma_correct: 1.0
-    segments:
-      - single_light_id: dmx_bar_1
-      - single_light_id: dmx_bar_2
-      - single_light_id: dmx_bar_3
-      - single_light_id: dmx_bar_4
-      - single_light_id: dmx_bar_5
-      - single_light_id: dmx_bar_6
-      - single_light_id: dmx_bar_7
-      - single_light_id: dmx_bar_8
-    effects:
-      - addressable_rainbow:
-      - addressable_color_wipe:
-      - addressable_scan:
-      - addressable_twinkle:
-      - !include effects/ColorShimmerEffect.yaml
-
   - platform: binary
     id: status
     output: out_led
 
+  - platform: monochromatic
+    name: Test DMX Channel 001
+    id: test_dmx_ch001
+    gamma_correct: 1.0
+    output: dmx_ch001
+
+  - platform: monochromatic
+    name: Test DMX Channel 002
+    id: test_dmx_ch002
+    gamma_correct: 1.0
+    output: dmx_ch002
+
+  - platform: monochromatic
+    name: Test DMX Channel 003
+    id: test_dmx_ch003
+    gamma_correct: 1.0
+    output: dmx_ch003
+
+  - platform: monochromatic
+    name: Test DMX Channel 004
+    id: test_dmx_ch004
+    gamma_correct: 1.0
+    output: dmx_ch004
+
+  - platform: monochromatic
+    name: Test DMX Channel 005
+    id: test_dmx_ch005
+    gamma_correct: 1.0
+    output: dmx_ch005
+
+  - platform: monochromatic
+    name: Test DMX Channel 006
+    id: test_dmx_ch006
+    gamma_correct: 1.0
+    output: dmx_ch006
+
+  - platform: monochromatic
+    name: Test DMX Channel 007
+    id: test_dmx_ch007
+    gamma_correct: 1.0
+    output: dmx_ch007
+
+  - platform: monochromatic
+    name: Test DMX Channel 008
+    id: test_dmx_ch008
+    gamma_correct: 1.0
+    output: dmx_ch008
+
+  - platform: monochromatic
+    name: Test DMX Channel 009
+    id: test_dmx_ch009
+    gamma_correct: 1.0
+    output: dmx_ch009
+
+  - platform: monochromatic
+    name: Test DMX Channel 010
+    id: test_dmx_ch010
+    gamma_correct: 1.0
+    output: dmx_ch010
+
+  - platform: monochromatic
+    name: Test DMX Channel 011
+    id: test_dmx_ch011
+    gamma_correct: 1.0
+    output: dmx_ch011
+
+  - platform: monochromatic
+    name: Test DMX Channel 012
+    id: test_dmx_ch012
+    gamma_correct: 1.0
+    output: dmx_ch012
