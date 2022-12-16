@@ -124,6 +124,7 @@ light:
 
   - platform: fastled_clockless
     id: strip
+    name: mainframe rgb lights
     chipset: WS2812B
     pin: GPIO15
     # this should be increased once fan is in the chain
@@ -132,4 +133,12 @@ light:
     rgb_order: GRB
     effects:
       - wled:
-      - !include effects/ColorShimmerEffect.yaml
+        #- !include effects/ColorShimmerEffect.yaml
+    on_turn_on:
+      - light.turn_on:
+          id: strip
+          brightness: 100%
+          red: 100%
+          green: 0%
+          blue: 100%
+          effect: "WLED"
