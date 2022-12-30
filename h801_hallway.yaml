@@ -1,5 +1,5 @@
 esphome:
-  name: h801_growled
+  name: "h801_hallway"
   platform: ESP8266
   board: esp01_1m
   esp8266_restore_from_flash: yes
@@ -12,7 +12,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "H801 GrowLED Fallback Hotspot"
+    ssid: "H801 Hallway Fallback Hotspot"
     password: !secret fallback-password
 
 mdns:
@@ -29,7 +29,7 @@ logger:
 mqtt:
   broker: mqtt.ak-online.be
   discovery: true
-  topic_prefix: esphome/h801_growled
+  topic_prefix: esphome/h801_hallway
 
 ota:
 
@@ -38,7 +38,7 @@ web_server:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal H801 Growlight"
+    name: "WiFi Signal H801 Hallway"
     update_interval: 60s
 
 status_led:
