@@ -53,6 +53,7 @@ wled:
 
 web_server:
   port: 80
+  include_internal: true
 
 sensor:
   - platform: wifi_signal

@@ -37,6 +37,7 @@ ota:
 
 web_server:
   port: 80
+  include_internal: true
 
 binary_sensor:
   - platform: gpio
@@ -44,5 +45,6 @@ binary_sensor:
       number: GPIO0
       mode: INPUT_PULLUP
     name: "Tester Button"
+    internal: true
     filters:
       - delayed_on_off: 50ms

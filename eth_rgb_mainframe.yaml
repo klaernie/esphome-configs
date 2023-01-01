@@ -65,6 +65,7 @@ ota:
 
 web_server:
   port: 80
+  include_internal: true
 
 #esp32_ble_beacon:
 #  type: iBeacon

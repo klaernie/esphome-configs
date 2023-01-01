@@ -69,6 +69,7 @@ ota:
 
 web_server:
   port: 80
+  include_internal: true
 
 wled:
 
