@@ -1,0 +1,176 @@
+esphome:
+  name: tobi-stripcontroller
+  platform: ESP32
+  board: wt32-eth01
+  #platformio_options:
+  #upload_speed: 115200
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO0_IN
+  phy_addr: 1
+  power_pin: GPIO16
+  use_address: tobi-stripcontroller.ak-online.be
+
+mdns:
+  disabled: true
+
+# Enable logging
+logger:
+#  # important: disable serial logging, UARTs are taken by eth nic
+#  baud_rate: 0
+
+# Enable Home Assistant API
+#api:
+
+mqtt:
+  broker: mqtt.ak-online.be
+  discovery: true
+  topic_prefix: esphome/tobi-stripcontroller
+
+ota:
+
+web_server:
+  port: 80
+  include_internal: true
+
+wled:
+
+output:
+  - platform: gpio
+    pin: GPIO17
+    id: out_led
+
+light:
+  - platform: binary
+    id: status
+    output: out_led
+
+  - platform: fastled_clockless
+    id: tobi_teststrip
+    chipset: WS2812B
+    pin: GPIO15
+    # this should be increased once fan is in the chain
+    #num_leds: 30
+    # num_leds: 1500 # bootloop
+    # num_leds: 1100 # works
+    # num_leds: 1150 # works
+    #
+    num_leds: 292
+    rgb_order: GRB
+    gamma_correct: 1.0
+    color_correct: [ 100%, 100%, 100% ]
+    restore_mode: ALWAYS_OFF
+
+  - platform: partition
+    id: tobi_teststrip_vert_r
+    segments:
+      - id: tobi_teststrip
+        from: 87
+        to: 151
+        reversed: true
+    gamma_correct: 1.0
+    color_correct: [ 55%, 55%, 55% ]
+    restore_mode: ALWAYS_OFF
+
+  - platform: partition
+    id: tobi_teststrip_vert_l
+    segments:
+      - id: tobi_teststrip
+        from: 228
+        to: 291
+        reversed: true
+    gamma_correct: 1.0
+    color_correct: [ 55%, 55%, 55% ]
+    restore_mode: ALWAYS_OFF
+
+  - platform: partition
+    id: tobi_teststrip_hori_top
+    segments:
+      - id: tobi_teststrip
+        from: 152
+        to: 227
+    gamma_correct: 1.0
+    color_correct: [ 100%, 100%, 100% ]
+    restore_mode: ALWAYS_OFF
+
+  - platform: partition
+    id: tobi_teststrip_hori_bot
+    segments:
+      - id: tobi_teststrip
+        from: 0
+        to: 0
+      - id: tobi_teststrip
+        from: 2
+        to: 41
+      - id: tobi_teststrip
+        from: 43
+        to: 44
+      - id: tobi_teststrip
+        from: 46
+        to: 85
+      - id: tobi_teststrip
+        from: 87
+        to: 87
+    gamma_correct: 1.0
+    color_correct: [ 100%, 100%, 100% ]
+    restore_mode: ALWAYS_OFF
+
+  - platform: partition
+    id: tobi_teststrip_reassembled
+    name: Tobi LED Wall
+    segments:
+      - id: tobi_teststrip_hori_top
+        from: 0
+        to: 75
+        reversed: true
+      - id: tobi_teststrip_vert_r
+        from: 0
+        to: 63
+        reversed: true
+      - id: tobi_teststrip_hori_bot
+        from: 0
+        to: 87
+        reversed: true
+      - id: tobi_teststrip_vert_l
+        from: 0
+        to: 63
+        reversed: true
+
+    gamma_correct: 1.0
+    effects:
+      - addressable_rainbow:
+          name: Double Rainbow
+          width: 142
+      - addressable_rainbow:
+          name: Full Rainbow
+          width: 294
+      - addressable_color_wipe:
+      - addressable_scan:
+      - addressable_twinkle:
+      - addressable_random_twinkle:
+      - addressable_fireworks:
+      - addressable_flicker:
+      - wled:
+      - lambda:
+          name: Full Color Cycle
+          update_interval: 10s
+          lambda: |-
+            static int state = 0;
+            auto call = id(tobi_teststrip_reassembled).turn_on();
+            // Transition of 1000ms = 1s
+            call.set_transition_length(10000);
+            if (state == 0) {
+              call.set_rgb(1.0, 0.0, 0.0);
+            } else if (state == 1) {
+              call.set_rgb(0.0, 1.0, 0.0);
+            } else if (state == 2) {
+              call.set_rgb(0.0, 0.0, 1.0);
+            }
+            call.perform();
+            state += 1;
+            if (state == 3)
+              state = 0;
+
