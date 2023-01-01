@@ -74,9 +74,6 @@ web_server:
 wled:
 
 sensor:
-  #  - platform: wifi_signal
-  #  name: "WiFi Signal RGB Mainframe"
-  #  update_interval: 60s
   - platform: ntc
     sensor: resistance_sensor
     calibration:
