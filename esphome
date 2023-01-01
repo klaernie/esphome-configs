@@ -1,1 +1,5 @@
-podman run -it -v $(pwd):/config docker.io/esphome/esphome "$@"
+extraargs=""
+if test -c /dev/ttyUSB0; then
+	extraargs="--group-add keep-groups --mount type=bind,src=/dev/ttyUSB0,dst=/dev/ttyUSB0"
+fi
+podman --runtime crun run -it $extraargs -v $(pwd):/config docker.io/esphome/esphome "$@"
