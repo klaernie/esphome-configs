@@ -132,7 +132,7 @@ light:
         reversed: true
       - id: tobi_teststrip_hori_bot
         from: 0
-        to: 87
+        to: 83
         reversed: true
       - id: tobi_teststrip_vert_l
         from: 0
