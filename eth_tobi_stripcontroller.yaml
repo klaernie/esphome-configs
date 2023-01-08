@@ -54,6 +54,7 @@ light:
     gamma_correct: 1.0
     color_correct: [ 100%, 100%, 100% ]
     restore_mode: ALWAYS_OFF
+    power_supply: atx
 
   - platform: partition
     id: tobi_teststrip_vert_r
@@ -165,3 +166,8 @@ light:
             if (state == 3)
               state = 0;
 
+power_supply:
+  - id: atx
+    pin:
+      number: GPIO17
+      inverted: true
