@@ -38,16 +38,7 @@ web_server:
 
 wled:
 
-output:
-  - platform: gpio
-    pin: GPIO17
-    id: out_led
-
 light:
-  - platform: binary
-    id: status
-    output: out_led
-
   - platform: fastled_clockless
     id: tobi_teststrip
     chipset: WS2812B
