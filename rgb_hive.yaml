@@ -127,31 +127,6 @@ light:
     id: status
     output: out_led
 
-  - platform: monochromatic
-    name: "Hive HDD1/2"
-    id: "fan_pwm1"
-    default_transition_length: 0.5s
-    gamma_correct: 1.0
-    output: fan1
-  - platform: monochromatic
-    name: "Hive HDD3-5"
-    id: "fan_pwm2"
-    default_transition_length: 0.5s
-    gamma_correct: 1.0
-    output: fan4
-  - platform: monochromatic
-    name: "Hive Radiator Fan"
-    id: "fan_pwm3"
-    default_transition_length: 0.5s
-    gamma_correct: 1.0
-    output: fan2
-  - platform: monochromatic
-    name: "Hive PWM4"
-    id: "fan_pwm4"
-    default_transition_length: 0.5s
-    gamma_correct: 1.0
-    output: fan3
-
   - platform: fastled_clockless
     id: strip
     name: "Hive Light"
@@ -163,4 +138,22 @@ light:
     rgb_order: GRB
     effects:
       - wled:
-      - !include effects/ColorShimmerEffect.yaml
+    # - !include effects/ColorShimmerEffect.yaml
+
+fan:
+  - platform: speed
+    name: "Hive HDD1/2"
+    id: "fan_pwm1"
+    output: fan1
+  - platform: speed
+    name: "Hive HDD3-5"
+    id: "fan_pwm2"
+    output: fan4
+  - platform: speed
+    name: "Hive Radiator Fan"
+    id: "fan_pwm3"
+    output: fan2
+  - platform: speed
+    name: "Hive PWM4"
+    id: "fan_pwm4"
+    output: fan3
