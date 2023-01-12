@@ -64,6 +64,7 @@ output:
 light:
   - platform: binary
     id: status
+    internal: true
     output: out_led
     entity_category: diagnostic
 
