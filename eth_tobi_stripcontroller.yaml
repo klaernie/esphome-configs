@@ -166,6 +166,15 @@ light:
             if (state == 3)
               state = 0;
 
+switch:
+  - platform: gpio
+    id: aux
+    name: Tobi Light PSU Force-Enable
+    restore_mode: DISABLED
+    pin:
+      number: GPIO17
+      inverted: true
+
 power_supply:
   - id: atx
     pin:
