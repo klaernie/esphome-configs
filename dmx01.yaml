@@ -176,74 +176,147 @@ light:
     id: status
     output: out_led
 
-  - platform: monochromatic
-    name: Test DMX Channel 001
-    id: test_dmx_ch001
-    gamma_correct: 1.0
-    output: dmx_ch001
+number:
+    - platform: template
+      name: "Ch 001 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch001
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 002
-    id: test_dmx_ch002
-    gamma_correct: 1.0
-    output: dmx_ch002
+    - platform: template
+      name: "Ch 002 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch002
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 003
-    id: test_dmx_ch003
-    gamma_correct: 1.0
-    output: dmx_ch003
+    - platform: template
+      name: "Ch 003 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch003
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 004
-    id: test_dmx_ch004
-    gamma_correct: 1.0
-    output: dmx_ch004
+    - platform: template
+      name: "Ch 004 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch004
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 005
-    id: test_dmx_ch005
-    gamma_correct: 1.0
-    output: dmx_ch005
+    - platform: template
+      name: "Ch 005 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch005
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 006
-    id: test_dmx_ch006
-    gamma_correct: 1.0
-    output: dmx_ch006
+    - platform: template
+      name: "Ch 006 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch006
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 007
-    id: test_dmx_ch007
-    gamma_correct: 1.0
-    output: dmx_ch007
+    - platform: template
+      name: "Ch 007 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch007
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 008
-    id: test_dmx_ch008
-    gamma_correct: 1.0
-    output: dmx_ch008
+    - platform: template
+      name: "Ch 008 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch008
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 009
-    id: test_dmx_ch009
-    gamma_correct: 1.0
-    output: dmx_ch009
+    - platform: template
+      name: "Ch 009 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch009
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 010
-    id: test_dmx_ch010
-    gamma_correct: 1.0
-    output: dmx_ch010
+    - platform: template
+      name: "Ch 010 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch010
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 011
-    id: test_dmx_ch011
-    gamma_correct: 1.0
-    output: dmx_ch011
+    - platform: template
+      name: "Ch 011 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch011
+            level: !lambda return x/255.0;
 
-  - platform: monochromatic
-    name: Test DMX Channel 012
-    id: test_dmx_ch012
-    gamma_correct: 1.0
-    output: dmx_ch012
+    - platform: template
+      name: "Ch 012 value"
+      optimistic: true
+      internal: true
+      min_value: 0
+      max_value: 255
+      step: 1
+      set_action:
+        - output.set_level:
+            id: dmx_ch012
+            level: !lambda return x/255.0;
