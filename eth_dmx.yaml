@@ -300,6 +300,7 @@ light:
     internal: true
     id: dmxbar_bar_1
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch1_red
     green: dmxbar_ch1_green
     blue: dmxbar_ch1_blue
@@ -309,6 +310,7 @@ light:
     internal: true
     id: dmxbar_bar_2
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch2_red
     green: dmxbar_ch2_green
     blue: dmxbar_ch2_blue
@@ -318,6 +320,7 @@ light:
     internal: true
     id: dmxbar_bar_3
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch3_red
     green: dmxbar_ch3_green
     blue: dmxbar_ch3_blue
@@ -327,6 +330,7 @@ light:
     internal: true
     id: dmxbar_bar_4
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch4_red
     green: dmxbar_ch4_green
     blue: dmxbar_ch4_blue
@@ -336,6 +340,7 @@ light:
     internal: true
     id: dmxbar_bar_5
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch5_red
     green: dmxbar_ch5_green
     blue: dmxbar_ch5_blue
@@ -345,6 +350,7 @@ light:
     internal: true
     id: dmxbar_bar_6
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch6_red
     green: dmxbar_ch6_green
     blue: dmxbar_ch6_blue
@@ -354,6 +360,7 @@ light:
     internal: true
     id: dmxbar_bar_7
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch7_red
     green: dmxbar_ch7_green
     blue: dmxbar_ch7_blue
@@ -363,6 +370,7 @@ light:
     internal: true
     id: dmxbar_bar_8
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmxbar_ch8_red
     green: dmxbar_ch8_green
     blue: dmxbar_ch8_blue
@@ -372,6 +380,7 @@ light:
     internal: true
     id: dmx_light_addr1
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmx_ch1_red
     green: dmx_ch1_green
     blue: dmx_ch1_blue
@@ -381,6 +390,7 @@ light:
     internal: true
     id: dmx_light_addr8
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmx_ch2_red
     green: dmx_ch2_green
     blue: dmx_ch2_blue
@@ -390,6 +400,7 @@ light:
     internal: true
     id: dmx_light_addr15
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmx_ch3_red
     green: dmx_ch3_green
     blue: dmx_ch3_blue
@@ -399,6 +410,7 @@ light:
     internal: true
     id: dmx_light_addr27
     gamma_correct: 1.0
+    default_transition_length: 0s
     red: dmx_ch4_red
     green: dmx_ch4_green
     blue: dmx_ch4_blue
