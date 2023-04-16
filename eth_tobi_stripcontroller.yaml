@@ -38,6 +38,9 @@ web_server:
 
 wled:
 
+e131:
+  method: unicast
+
 light:
   - platform: fastled_clockless
     id: tobi_teststrip
@@ -146,6 +149,9 @@ light:
       - addressable_fireworks:
       - addressable_flicker:
       - wled:
+      - e131:
+          universe: 1
+          channels: RGB
       - lambda:
           name: Full Color Cycle
           update_interval: 10s
@@ -166,14 +172,16 @@ light:
             if (state == 3)
               state = 0;
 
-switch:
-  - platform: gpio
-    id: aux
-    name: Tobi Light PSU Force-Enable
-    restore_mode: DISABLED
-    pin:
-      number: GPIO17
-      inverted: true
+#switch:
+#  - platform: template
+#    id: aux
+#    name: Tobi Light PSU Force-Enable
+#    restore_mode: DISABLED
+#    lambda: return id(atx).is_enabled();
+#    turn_on_action:
+#      - lambda: id(atx).request_high_power();
+#    turn_off_action:
+#      - lambda: id(atx).unrequest_high_power();
 
 power_supply:
   - id: atx
