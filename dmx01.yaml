@@ -63,8 +63,6 @@ dmx512:
   enable_pin: 33
   tx_pin: 32
   uart_num: 1
-  force_full_frames: false
-  update_interval: 500
 
 output:
   - platform: gpio
