@@ -20,6 +20,18 @@ esphome:
       - output.set_level:
           id: dmx_ch4_brightness
           level: 100%
+      - output.set_level:
+          id: dmx_ch1_mode
+          level: 0%
+      - output.set_level:
+          id: dmx_ch2_mode
+          level: 0%
+      - output.set_level:
+          id: dmx_ch3_mode
+          level: 0%
+      - output.set_level:
+          id: dmx_ch4_mode
+          level: 0%
 
 #wifi:
 #  ssid: !secret wifi-east
@@ -214,6 +226,10 @@ output:
     universe: dmx
     channel: 28
     id: dmx_ch1_blue
+  - platform: dmx512
+    universe: dmx
+    channel: 30
+    id: dmx_ch1_mode
 
   - platform: dmx512
     universe: dmx
@@ -231,6 +247,10 @@ output:
     universe: dmx
     channel: 35
     id: dmx_ch2_blue
+  - platform: dmx512
+    universe: dmx
+    channel: 37
+    id: dmx_ch2_mode
 
   - platform: dmx512
     universe: dmx
@@ -248,6 +268,10 @@ output:
     universe: dmx
     channel: 42
     id: dmx_ch3_blue
+  - platform: dmx512
+    universe: dmx
+    channel: 44
+    id: dmx_ch3_mode
 
   - platform: dmx512
     universe: dmx
@@ -265,6 +289,10 @@ output:
     universe: dmx
     channel: 49
     id: dmx_ch4_blue
+  - platform: dmx512
+    universe: dmx
+    channel: 51
+    id: dmx_ch4_mode
 
 light:
   - platform: rgb
@@ -403,3 +431,34 @@ light:
     id: status
     output: out_led
 
+  - platform: monochromatic
+    name: "Growlight 09 - Light 25 Mode"
+    internal: true
+    id: dmx_mode_light_addr1
+    gamma_correct: 1.0
+    default_transition_length: 0s
+    output: dmx_ch1_mode
+
+  - platform: monochromatic
+    name: "Growlight 10 - Light 32 Mode"
+    internal: true
+    id: dmx_mode_light_addr8
+    gamma_correct: 1.0
+    default_transition_length: 0s
+    output: dmx_ch2_mode
+
+  - platform: monochromatic
+    name: "Growlight 11 - Light 39 Mode"
+    internal: true
+    id: dmx_mode_light_addr15
+    gamma_correct: 1.0
+    default_transition_length: 0s
+    output: dmx_ch3_mode
+
+  - platform: monochromatic
+    name: "Growlight 12 - Light 46 Mode"
+    internal: true
+    id: dmx_mode_light_addr27
+    gamma_correct: 1.0
+    default_transition_length: 0s
+    output: dmx_ch4_mode
