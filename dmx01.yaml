@@ -22,8 +22,8 @@ mdns:
 
 logger:
   baud_rate: 0
-  logs:
-    dmx512: INFO
+# logs:
+#   dmx512: INFO
 
 # Enable Home Assistant API
 #api:
