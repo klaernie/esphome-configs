@@ -5,6 +5,10 @@ esphome:
   #platformio_options:
   #upload_speed: 115200
 
+  includes:
+    - audio-reactive-led-strip/audio-reactive-led-strip
+    - audio-reactive-led-strip/esphome-music-leds
+
   on_boot:
     priority: 100
     then:
@@ -70,6 +74,7 @@ logger:
   baud_rate: 0
   logs:
     dmx512: INFO
+    MusicLeds: INFO
 
 # Enable Home Assistant API
 #api:
@@ -439,6 +444,21 @@ light:
       - addressable_scan:
       - addressable_twinkle:
      #- !include effects/ColorShimmerEffect.yaml
+      - addressable_lambda:
+          name: Scroll with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_SCROLL, &it);
+      - addressable_lambda:
+          name: Energy with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_ENERGY, &it);
+      - addressable_lambda:
+          name: Spectrum with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_SPECTRUM, &it);
 
 
   - platform: binary
@@ -476,3 +496,24 @@ light:
     gamma_correct: 1.0
     default_transition_length: 0s
     output: dmx_ch4_mode
+
+  - platform: fastled_clockless
+    chipset: WS2811
+    pin: GPIO12
+    num_leds: 1
+    rgb_order: BRG
+    name: "Fake FastLED WS2811 Light"
+    internal: true
+
+custom_component:
+  - lambda: |-
+      auto my_music_leds = new MusicLeds(
+        12,     /* num of pixels */
+        0.0035, /* threshold */
+        15,     /* ws pin */
+        14      /* data piG */
+      );
+      App.register_component(my_music_leds);
+      return {my_music_leds};
+    components:
+      - id: music_leds

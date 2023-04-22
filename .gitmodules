@@ -1,0 +1,3 @@
+[submodule "audio-reactive-led-strip"]
+	path = audio-reactive-led-strip
+	url = git@github.com:klaernie/audio-reactive-led-strip
