@@ -68,6 +68,8 @@ mdns:
 logger:
   # important: disable serial logging, UARTs are taken by eth nic
   baud_rate: 0
+  logs:
+    dmx512: INFO
 
 # Enable Home Assistant API
 #api:
