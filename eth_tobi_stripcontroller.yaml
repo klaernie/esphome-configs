@@ -183,6 +183,12 @@ light:
 #    turn_off_action:
 #      - lambda: id(atx).unrequest_high_power();
 
+button:
+  - platform: restart
+    name: Tobi Stripcontroller Reboot
+  - platform: safe_mode
+    name: Tobi Stripcontroller Safe Mode
+
 power_supply:
   - id: atx
     pin:
