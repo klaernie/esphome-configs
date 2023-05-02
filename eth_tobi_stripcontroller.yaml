@@ -5,6 +5,11 @@ esphome:
   #platformio_options:
   #upload_speed: 115200
 
+  includes:
+    - audio-reactive-led-strip/audio-reactive-led-strip
+    - audio-reactive-led-strip/esphome-music-leds
+
+
 ethernet:
   type: LAN8720
   mdc_pin: GPIO23
@@ -21,6 +26,8 @@ mdns:
 logger:
 #  # important: disable serial logging, UARTs are taken by eth nic
 #  baud_rate: 0
+  logs:
+    MusicLeds: INFO
 
 # Enable Home Assistant API
 #api:
@@ -171,6 +178,21 @@ light:
             state += 1;
             if (state == 3)
               state = 0;
+      - addressable_lambda:
+          name: Scroll with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_SCROLL, &it);
+      - addressable_lambda:
+          name: Energy with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_ENERGY, &it);
+      - addressable_lambda:
+          name: Spectrum with Music
+          update_interval: 0s
+          lambda: |-
+            ((MusicLeds*) id(music_leds))->ShowFrame(MODE_SPECTRUM, &it);
 
 #switch:
 #  - platform: template
@@ -194,3 +216,15 @@ power_supply:
     pin:
       number: GPIO17
       inverted: true
+custom_component:
+  - lambda: |-
+      auto my_music_leds = new MusicLeds(
+        294,     /* num of pixels */
+        0.0035, /* threshold */
+        14,     /* ws pin */
+        36      /* data piG */
+      );
+      App.register_component(my_music_leds);
+      return {my_music_leds};
+    components:
+      - id: music_leds
