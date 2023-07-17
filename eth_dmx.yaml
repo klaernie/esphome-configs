@@ -439,6 +439,7 @@ light:
       - single_light_id: dmx_light_addr15
       - single_light_id: dmx_light_addr27
     effects:
+      - wled:
       - addressable_rainbow:
       - addressable_color_wipe:
       - addressable_scan:
