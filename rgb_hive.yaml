@@ -23,11 +23,6 @@ wifi:
 
   use_address: rgb-hive.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "RGB Hive Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 

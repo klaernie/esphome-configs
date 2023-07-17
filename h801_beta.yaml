@@ -10,11 +10,6 @@ wifi:
 
   use_address: h801-beta.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "H801 Beta Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 

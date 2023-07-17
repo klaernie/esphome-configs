@@ -13,11 +13,6 @@ wifi:
 
   use_address: DelockSwitch1.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "DelockSwitch1 Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 

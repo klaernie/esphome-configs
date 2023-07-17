@@ -10,11 +10,6 @@ wifi:
 
   use_address: esp-balcony.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "Balcony Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 

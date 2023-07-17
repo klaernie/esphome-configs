@@ -13,11 +13,6 @@ wifi:
 
   use_address: videoled.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "VideoLED Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 

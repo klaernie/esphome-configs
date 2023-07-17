@@ -10,11 +10,6 @@ wifi:
 
   use_address: tuya3.ak-online.be
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "Tuya3 Fallback Hotspot"
-    password: !secret fallback-password
-
 mdns:
   disabled: true
 
