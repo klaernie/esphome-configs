@@ -72,6 +72,11 @@ sensor:
     filters:
       - filter_out: NaN
 
+      # remove outliers that measure less than 0°C
+      - lambda: !lambda |-
+          if (x < 0) return {};
+          return x;
+
 
   - platform: resistance
     id: resistance_sensor
