@@ -88,3 +88,15 @@ light:
     id: status
     #name: "Status LED"
     output: out_led
+
+climate:
+  - platform: delonghi
+    name: "Office AC (Test)"
+    transmitter_id: IRTX
+    receiver_id: IRRX
+    supports_cool : true
+    supports_heat : false
+    visual:
+      min_temperature: 16
+      max_temperature: 32
+      temperature_step: 1
