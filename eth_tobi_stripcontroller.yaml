@@ -1,4 +1,5 @@
 esphome:
+  friendly_name: Tobi Stripcontroller
   name: tobi-stripcontroller
   platform: ESP32
   board: wt32-eth01
