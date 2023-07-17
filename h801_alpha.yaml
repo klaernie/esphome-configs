@@ -2,7 +2,6 @@ esphome:
   name: h801_alpha
   platform: ESP8266
   board: esp01_1m
-  esp8266_restore_from_flash: yes
 
 wifi:
   ssid: !secret wifi-east
@@ -77,6 +76,7 @@ light:
     green: pwm_r
     blue: pwm_b
     gamma_correct: 1.0
+    restore_mode: ALWAYS_OFF
 #  - platform: monochromatic
 #    name: "downlight"
 #    output: pwm_w1

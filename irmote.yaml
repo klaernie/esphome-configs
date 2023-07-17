@@ -4,7 +4,6 @@ esphome:
   board: esp12e
   #platformio_options:
   #upload_speed: 115200
-  esp8266_restore_from_flash: yes
 
 
 wifi:
