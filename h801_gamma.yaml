@@ -113,7 +113,7 @@ light:
       - addressable_color_wipe:
       - addressable_scan:
       - addressable_twinkle:
-      - !include effects/ColorShimmerEffect.yaml
+      #- !include effects/ColorShimmerEffect.yaml
 
 switch:
   - platform: template
