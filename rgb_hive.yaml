@@ -15,6 +15,10 @@ esphome:
           green: 0%
           blue: 100%
           effect: "WLED"
+      - fan.turn_on: fan_pwm1
+      - fan.turn_on: fan_pwm2
+      - fan.turn_on: fan_pwm3
+      - fan.turn_on: fan_pwm4
 
 
 wifi:
