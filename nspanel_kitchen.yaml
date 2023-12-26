@@ -1,9 +1,5 @@
 esphome:
   name: nsp-kitchen
-  on_boot:
-    priority: 601
-    then:
-      - lambda: id(disp).send_command_printf("DRAKJHSUYDGBNCJHGJKSHBDN");
 
 esp32:
   board: esp32dev
@@ -57,6 +53,7 @@ button:
     entity_category: config
     on_press:
       - lambda: |
+          id(disp).set_protocol_reparse_mode(false); // Force passive reparse protocol
           id(disp)->upload_tft();
 
 display:
