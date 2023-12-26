@@ -57,6 +57,10 @@ time:
   - platform: sntp
     id: sntp_time
 
+button:
+  - platform: restart
+    name: "Restart"
+
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal RGB Hive"

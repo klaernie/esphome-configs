@@ -36,6 +36,10 @@ sensor:
     name: "WiFi Signal H801 Hallway"
     update_interval: 60s
 
+button:
+  - platform: restart
+    name: restart
+
 status_led:
   pin:
     number: GPIO05

@@ -42,7 +42,7 @@ i2c:
   scl: GPIO5
   scan: True
 
-switch:
+button:
   - platform: restart
     name: restart
 

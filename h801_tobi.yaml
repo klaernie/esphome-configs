@@ -33,6 +33,10 @@ web_server:
   port: 80
   include_internal: true
 
+button:
+  - platform: restart
+    name: restart
+
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal H801 Tobi"

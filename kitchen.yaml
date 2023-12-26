@@ -36,6 +36,10 @@ i2c:
   scl: GPIO5
   scan: True
 
+button:
+  - platform: restart
+    name: restart
+
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal ESP Kitchen"

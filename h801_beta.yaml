@@ -32,6 +32,10 @@ web_server:
   port: 80
   include_internal: true
 
+button:
+  - platform: restart
+    name: "Restart"
+
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal H801 Beta"

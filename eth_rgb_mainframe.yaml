@@ -75,6 +75,10 @@ web_server:
 
 wled:
 
+button:
+  - platform: restart
+    name: "Restart"
+
 sensor:
   - platform: ntc
     sensor: resistance_sensor
