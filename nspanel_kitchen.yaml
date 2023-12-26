@@ -1,5 +1,9 @@
 esphome:
   name: nsp-kitchen
+  on_boot:
+    priority: 601
+    then:
+      - lambda: id(disp).send_command_printf("DRAKJHSUYDGBNCJHGJKSHBDN");
 
 esp32:
   board: esp32dev
@@ -44,9 +48,16 @@ uart:
   rx_pin: 17
   baud_rate: 115200
 
-external_components:
-  - source: github://pr#2956
-    components: ["nextion"]
+button:
+  - platform: restart
+    name: restart
+
+  - platform: template
+    name: Kitchen Panel Upload TFT file
+    entity_category: config
+    on_press:
+      - lambda: |
+          id(disp)->upload_tft();
 
 display:
   - platform: nextion
@@ -165,13 +176,6 @@ switch:
       number: 4
       inverted: true
     restore_mode: ALWAYS_ON
-
-  - platform: template
-    name: Kitchen Panel Upload TFT file
-    entity_category: config
-    lambda: "return false;"
-    turn_on_action:
-      - lambda: 'id(disp)->upload_tft();'
 
 rtttl:
   id: buzzer
