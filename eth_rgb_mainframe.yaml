@@ -17,18 +17,6 @@ esphome:
           effect: "WLED"
 
 
-#wifi:
-#  ssid: !secret wifi-east
-#  password: !secret wifi-pwd
-#
-#  use_address: rgb_mainframe.ak-online.be
-#
-#  # Enable fallback hotspot (captive portal) in case wifi connection fails
-#  ap:
-#    ssid: "RGB Mainframe Fallback Hotspot"
-#    password: !secret fallback-password
-
-
 ethernet:
   type: LAN8720
   mdc_pin: GPIO23
@@ -37,14 +25,7 @@ ethernet:
   phy_addr: 1
   power_pin: GPIO16
   use_address: rgb-mainframe.ak-online.be
-#  manual_ip:
-#    static_ip: 172.16.2.50
-#    gateway: 172.16.0.1
-#    subnet: 255.255.252.0
-#    dns1: 172.16.0.1
-#    dns2: 172.16.0.253
 
-    #captive_portal:
 mdns:
   disabled: true
 
