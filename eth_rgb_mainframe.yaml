@@ -1,5 +1,5 @@
 esphome:
-  name: rgb_mainframe
+  name: rgb-mainframe
   platform: ESP32
   board: nodemcu-32s
   #platformio_options:

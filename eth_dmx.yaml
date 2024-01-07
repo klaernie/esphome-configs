@@ -1,5 +1,5 @@
 esphome:
-  name: eth_dmx
+  name: eth-dmx
   platform: ESP32
   board: nodemcu-32s
   #platformio_options:
