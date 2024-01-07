@@ -115,21 +115,23 @@ light:
       - addressable_twinkle:
       #- !include effects/ColorShimmerEffect.yaml
 
-switch:
+button:
   - platform: template
     name: tvon
-    turn_on_action:
+    on_press:
       - remote_transmitter.transmit_samsung:
           data: 0xE0E040BF
   - platform: template
     name: ClimateStateOn
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0x1218
         command: 0x2110
   - platform: template
     name: ClimateStateOff
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0x1218
         command: 0x80B0
+  - platform: restart
+    name: restart
