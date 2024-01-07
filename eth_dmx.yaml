@@ -102,14 +102,18 @@ external_components:
 uart:
   id: uart_bus
   baud_rate: 250000
-  tx_pin: 17
+  tx_pin:
+    number: 17
+    allow_other_uses: true
   stop_bits: 2
 
 dmx512:
   id: dmx
   uart_id: uart_bus
   enable_pin: 5
-  tx_pin: 17
+  tx_pin:
+    number: 17
+    allow_other_uses: true
   uart_num: 1
 
 output:
