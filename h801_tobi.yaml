@@ -69,9 +69,6 @@ output:
     frequency: 1000 Hz
     id: pwm_w2
   - platform: gpio
-    pin: 05
-    id: red_led
-  - platform: gpio
     pin: 01
     id: green_led
 
