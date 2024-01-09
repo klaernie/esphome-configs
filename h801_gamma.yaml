@@ -1,5 +1,5 @@
 esphome:
-  name: h801_gamma
+  name: h801-gamma
   platform: ESP8266
   board: esp01_1m
 

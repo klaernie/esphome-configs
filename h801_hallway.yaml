@@ -1,5 +1,5 @@
 esphome:
-  name: "h801_hallway"
+  name: "h801-hallway"
   platform: ESP8266
   board: esp01_1m
 
